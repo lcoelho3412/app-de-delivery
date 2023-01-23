@@ -1,12 +1,12 @@
 import React from 'react';
 import './App.css';
-import { AuthProvider } from './contexts/AuthProvider';
+import GlobalProvider from './contexts/GlobalProvider';
 import Routes from './routes';
 
 export default function App() {
   return (
-    <AuthProvider>
+    <GlobalProvider>
       <Routes />
-    </AuthProvider>
+    </GlobalProvider>
   );
 }
