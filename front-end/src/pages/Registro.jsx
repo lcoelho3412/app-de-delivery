@@ -4,9 +4,8 @@ import { Link, useHistory } from 'react-router-dom';
 export default function Registro() {
   const history = useHistory();
   const [error, setError] = useState('');
-
-  const [user, setUser] = useState({
-    nome: '',
+  const [newUser, setNewUser] = useState({
+    username: '',
     email: '',
     password: '',
   });
@@ -14,15 +13,15 @@ export default function Registro() {
   const changeState = ({ target }) => {
     const { name, value } = target;
 
-    setUser({ ...user, [name]: value });
+    setNewUser({ ...newUser, [name]: value });
   };
 
   const cadastrar = () => {
-    const nome = /[a-zA-Z]{3,}/.test(user.nome);
+    const nome = /[a-zA-Z]{3,}/.test(newUser.nome);
     const email = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(
-      user.email,
+      newUser.email,
     );
-    const password = /^.{6,}/.test(user.password);
+    const password = /^.{6,}/.test(newUser.password);
 
     if (!nome) {
       setError('Preencha o campo nome');
@@ -52,9 +51,9 @@ export default function Registro() {
           <br />
           Nome
           <input
-            type="email"
+            type="text"
             data-testid="common_register__input-name"
-            name="nome"
+            name="username"
             onChange={ changeState }
           />
         </label>
