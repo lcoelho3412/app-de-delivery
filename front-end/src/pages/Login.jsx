@@ -1,15 +1,13 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
+import GlobalContext from '../contexts/GlobalContext';
+import { loginService } from '../services/requests';
 
 export default function Login() {
   const history = useHistory();
-
-  // const [error, setError] = useState('');
+  const { user, setUser } = useContext(GlobalContext);
+  const [failedTryLogin, setFailedTryLogin] = useState(false);
   const [disable, setDisable] = useState(true);
-  const [user, setUser] = useState({
-    email: '',
-    password: '',
-  });
 
   const validation = useCallback(
     () => (/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(user.email)
@@ -19,8 +17,20 @@ export default function Login() {
     [user],
   );
 
-  const login = () => {
-    history.push('/produtos');
+  const login = async (event) => {
+    event.preventDefault();
+
+    const { email, password } = user;
+
+    try {
+      const { token } = await loginService({ email, password });
+
+      localStorage.setItem('token', token);
+
+      history.push('/produtos');
+    } catch (error) {
+      setFailedTryLogin(true);
+    }
   };
 
   const changeState = ({ target }) => {
@@ -80,7 +90,9 @@ export default function Login() {
           Ainda não tenho conta
         </button>
       </form>
-      {/* <p data-testid="common_login__element-invalid-email">{error}</p> */}
+      {failedTryLogin ? (
+        <p data-testid="common_login__element-invalid-email">{error}</p>
+      ) : null}
     </>
   );
 }
