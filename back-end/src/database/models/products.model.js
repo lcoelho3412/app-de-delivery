@@ -1,5 +1,5 @@
-const Products = (sequelize, DataType) => {
-  const Products = sequelize.define('Products', {
+module.exports = (sequelize, DataType) => {
+  const Product = sequelize.define('Product', {
     id: {
       allowNull: false,
       autoIncrement: true,
@@ -25,14 +25,12 @@ const Products = (sequelize, DataType) => {
       underscored: true,
     });
 
-  Products.associate = ({ SalesProducts }) => {
-    Products.hasMany(SalesProducts, {
+  Product.associate = ({ SalesProducts }) => {
+    Product.hasMany(SalesProducts, {
       as: 'product',
       foreignKey: 'productId',
     });
   };
 
-  return Products;
+  return Product;
 };
-
-module.exports = Products;
