@@ -6,7 +6,7 @@ export default function Routes() {
     <BrowserRouter>
       <Switch>
         <Route exact path="/" component={ Login } />
-        <Route exact path="/signup" component={ Registro } />
+        <Route exact path="/register" component={ Registro } />
 
         <Route path="*" component={ NotFound } />
       </Switch>
