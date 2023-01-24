@@ -28,7 +28,7 @@ export default function Login() {
 
       if (data.message) throw new Error(data.message);
 
-      history.push('/produtos');
+      history.push('/customer/products');
 
       localStorage.setItem('token', token);
     } catch (e) {
