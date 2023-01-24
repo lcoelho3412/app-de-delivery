@@ -8,6 +8,7 @@ export default function Login() {
   const { user, setUser } = useContext(GlobalContext);
   const [failedTryLogin, setFailedTryLogin] = useState(false);
   const [disable, setDisable] = useState(true);
+  const [error, setError] = useState('');
 
   const validation = useCallback(
     () => (/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(user.email)
@@ -23,12 +24,15 @@ export default function Login() {
     const { email, password } = user;
 
     try {
-      const { token } = await loginService({ email, password });
+      const data = await loginService({ email, password });
 
-      localStorage.setItem('token', token);
+      if (data.message) throw new Error(data.message);
 
       history.push('/produtos');
-    } catch (error) {
+
+      localStorage.setItem('token', token);
+    } catch (e) {
+      setError(e.message);
       setFailedTryLogin(true);
     }
   };
@@ -43,6 +47,8 @@ export default function Login() {
   useEffect(() => {
     validation();
   }, [user, validation]);
+
+  if (history.location.pathname === '/') history.push('/login');
 
   return (
     <>
@@ -90,9 +96,9 @@ export default function Login() {
           Ainda não tenho conta
         </button>
       </form>
-      {failedTryLogin ? (
-        <p data-testid="common_login__element-invalid-email">{error}</p>
-      ) : null}
+      <p data-testid="common_login__element-invalid-email" hidden={ !failedTryLogin }>
+        {error}
+      </p>
     </>
   );
 }

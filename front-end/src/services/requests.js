@@ -2,6 +2,7 @@ import axios from 'axios';
 
 const api = axios.create({
   baseURL: `http://localhost:${process.env.REACT_APP_API_PORT || '3001'}`,
+  headers: 'Access-Control-Allow-Origin',
 });
 
 export const requestLogin = async (endpoint, body) => {
@@ -10,8 +11,18 @@ export const requestLogin = async (endpoint, body) => {
   return data;
 };
 
-export const loginService = async ({ email, password }) => {
-  api.post('/login', { email, password });
+export const loginService = async (
+  { email,
+    password,
+  },
+) => {
+  try {
+    const { data } = await api.post('/login', { email, password });
+
+    return data;
+  } catch (error) {
+    return error.response.data;
+  }
 };
 
 export default api;
