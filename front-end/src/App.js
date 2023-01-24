@@ -1,16 +1,12 @@
 import React from 'react';
 import './App.css';
-import rockGlass from './images/rockGlass.svg';
+import GlobalProvider from './contexts/GlobalProvider';
+import Routes from './routes';
 
-function App() {
+export default function App() {
   return (
-    <div className="App">
-      <span className="logo">TRYBE</span>
-      <object className="rocksGlass" type="image/svg+xml" data={ rockGlass }>
-        Glass
-      </object>
-    </div>
+    <GlobalProvider>
+      <Routes />
+    </GlobalProvider>
   );
 }
-
-export default App;
