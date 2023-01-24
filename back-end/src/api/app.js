@@ -1,15 +1,18 @@
 const express = require('express');
 const cors = require('cors');
+const router = require('./routes');
 
-const loginRouter = require('./routes/login.router');
 const ErrorHandler = require('./middlewares/errorHandler');
 
 const app = express();
+
 app.use(cors());
 
 app.use(express.json());
 
-app.use(loginRouter);
+app.use('/login', router.login);
+
+app.use('/register', router.register);
 
 app.use(ErrorHandler.handle);
 
