@@ -1,17 +1,15 @@
-const { validateLogin } = require('../services/login.services');
-const HttpError = require('../utils/HttpError');
+const service = require('../services');
+const validateSchema = require('../services/validations/validationSchema');
+const { loginSchema } = require('../services/validations/schema');
 
-const login = async (req, res, next) => {
-    try {
-        const { email, password } = req.body;
+const signIn = async (req, res) => {
+  const { body } = req;
 
-        if (!email || !password) throw new HttpError(400, 'Invalid login');
-        const result = await validateLogin({ email, password });
+  await validateSchema(loginSchema, body);
 
-        return res.status(200).json({ token: result.token }); 
-    } catch (error) {
-        next(error);
-    }
+  const token = await service.login.signIn(body);
+
+  return res.status(200).json({ token });
 };
 
-module.exports = { login };
+module.exports = { signIn };

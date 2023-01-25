@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import GlobalContext from '../contexts/GlobalContext';
-import { loginService } from '../services/requests';
+import { request } from '../services/requests';
 
 export default function Login() {
   const history = useHistory();
@@ -24,15 +24,13 @@ export default function Login() {
     const { email, password } = user;
 
     try {
-      const data = await loginService({ email, password });
-
-      if (data.message) throw new Error(data.message);
+      const { token } = await request('/login', { email, password });
 
       history.push('/customer/products');
 
       localStorage.setItem('token', token);
     } catch (e) {
-      setError(e.message);
+      setError(e.response.data.message);
       setFailedTryLogin(true);
     }
   };
@@ -96,7 +94,10 @@ export default function Login() {
           Ainda não tenho conta
         </button>
       </form>
-      <p data-testid="common_login__element-invalid-email" hidden={ !failedTryLogin }>
+      <p
+        data-testid="common_login__element-invalid-email"
+        hidden={ !failedTryLogin }
+      >
         {error}
       </p>
     </>

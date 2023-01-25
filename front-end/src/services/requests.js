@@ -5,24 +5,10 @@ const api = axios.create({
   headers: 'Access-Control-Allow-Origin',
 });
 
-export const requestLogin = async (endpoint, body) => {
+export const request = async (endpoint, body) => {
   const { data } = await api.post(endpoint, body);
 
   return data;
-};
-
-export const loginService = async (
-  { email,
-    password,
-  },
-) => {
-  try {
-    const { data } = await api.post('/login', { email, password });
-
-    return data;
-  } catch (error) {
-    return error.response.data;
-  }
 };
 
 export default api;

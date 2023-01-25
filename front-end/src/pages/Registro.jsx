@@ -1,46 +1,52 @@
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
+import { request } from '../services/requests';
 
 export default function Registro() {
   const history = useHistory();
   const [error, setError] = useState('');
+  const [disable, setDisable] = useState(true);
+  const [failedTryLogin, setFailedTryLogin] = useState(false);
   const [newUser, setNewUser] = useState({
-    username: '',
+    name: '',
     email: '',
     password: '',
   });
+
+  const validation = useCallback(
+    () => (/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(newUser.email)
+      && /^.{6,}$/.test(newUser.password)
+      && /^.{,12}$/.test(newUser.name)
+      ? setDisable(false)
+      : setDisable(true)),
+    [newUser],
+  );
 
   const changeState = ({ target }) => {
     const { name, value } = target;
 
     setNewUser({ ...newUser, [name]: value });
+    validation();
   };
 
-  const cadastrar = () => {
-    const nome = /[a-zA-Z]{3,}/.test(newUser.nome);
-    const email = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(
-      newUser.email,
-    );
-    const password = /^.{6,}/.test(newUser.password);
+  const cadastrar = async (event) => {
+    event.preventDefault();
 
-    if (!nome) {
-      setError('Preencha o campo nome');
-    } else if (!email) {
-      setError('Preencha o campo email');
-    } else if (!password) {
-      setError('Preencha o campo password');
-    } else if (
-      nome.length === 0
-      || email.length === 0
-      || password.length === 0
-    ) {
-      setError('Preencha todos os campos');
-    } else {
-      alert('Usuário cadatrado com sucesso!');
+    const { name, email, password } = newUser;
+
+    try {
+      await request('/register', { name, email, password });
 
       history.push('/');
+    } catch (e) {
+      setError(e.response.data.message);
+      setFailedTryLogin(true);
     }
   };
+
+  useEffect(() => {
+    validation();
+  }, [newUser, validation]);
 
   return (
     <>
@@ -53,7 +59,7 @@ export default function Registro() {
           <input
             type="text"
             data-testid="common_register__input-name"
-            name="username"
+            name="name"
             onChange={ changeState }
           />
         </label>
@@ -82,8 +88,9 @@ export default function Registro() {
 
         <br />
         <button
-          type="button"
+          type="submit"
           data-testid="common_register__button-register"
+          disabled={ disable }
           onClick={ cadastrar }
         >
           Cadastrar
@@ -95,7 +102,12 @@ export default function Registro() {
         <Link to="/">Entre</Link>
       </p>
 
-      <p data-testid="common_register__element-invalid_register">{error}</p>
+      <p
+        data-testid="common_register__element-invalid_register"
+        hidden={ !failedTryLogin }
+      >
+        {error}
+      </p>
     </>
   );
 }
