@@ -9,10 +9,14 @@ const signIn = async (body) => {
   const hashedPassword = md5(password);
 
   const user = await User.findOne({
-    where: { email, password: hashedPassword },
+    where: { email },
   });
 
-  if (!user) throw httpException(400, 'Wrong email or password.');
+  if (!user) throw httpException(404, 'Wrong email or password.');
+
+  if (hashedPassword !== user.password) {
+    throw httpException(400, 'Wrong email or password.');
+  }
 
   const { password: _, ...userWithoutPassword } = user.dataValues;
 
