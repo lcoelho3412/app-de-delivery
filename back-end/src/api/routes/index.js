@@ -1,6 +1,6 @@
-const login = require('./login.router');
-const register = require('./register.router');
-const products = require('./products.routes')
+const login = require('./login.routes');
+const register = require('./register.routes');
+const products = require('./products.routes');
 
 module.exports = {
   login,
