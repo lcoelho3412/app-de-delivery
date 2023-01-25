@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
+import { registerService } from '../services/requests';
 
 export default function Registro() {
   const history = useHistory();
   const [error, setError] = useState('');
+  // const [disable, setDisable] = useState(true);
+
+  const [failedTryLogin, setFailedTryLogin] = useState(false);
   const [newUser, setNewUser] = useState({
-    username: '',
+    uname: '',
     email: '',
     password: '',
   });
@@ -14,31 +18,23 @@ export default function Registro() {
     const { name, value } = target;
 
     setNewUser({ ...newUser, [name]: value });
+    // validation();
   };
 
-  const cadastrar = () => {
-    const nome = /[a-zA-Z]{3,}/.test(newUser.nome);
-    const email = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(
-      newUser.email,
-    );
-    const password = /^.{6,}/.test(newUser.password);
+  const cadastrar = async (event) => {
+    event.preventDefault();
 
-    if (!nome) {
-      setError('Preencha o campo nome');
-    } else if (!email) {
-      setError('Preencha o campo email');
-    } else if (!password) {
-      setError('Preencha o campo password');
-    } else if (
-      nome.length === 0
-      || email.length === 0
-      || password.length === 0
-    ) {
-      setError('Preencha todos os campos');
-    } else {
-      alert('Usuário cadatrado com sucesso!');
+    const { name, email, password } = newUser;
+
+    try {
+      const data = await registerService({ name, email, password });
+
+      if (data.message) throw new Error(data.message);
 
       history.push('/');
+    } catch (e) {
+      setError(e.message);
+      setFailedTryLogin(true);
     }
   };
 
@@ -53,7 +49,7 @@ export default function Registro() {
           <input
             type="text"
             data-testid="common_register__input-name"
-            name="username"
+            name="name"
             onChange={ changeState }
           />
         </label>
@@ -85,6 +81,7 @@ export default function Registro() {
           type="button"
           data-testid="common_register__button-register"
           onClick={ cadastrar }
+          // disabled={ disable }
         >
           Cadastrar
         </button>
@@ -95,7 +92,12 @@ export default function Registro() {
         <Link to="/">Entre</Link>
       </p>
 
-      <p data-testid="common_register__element-invalid_register">{error}</p>
+      <p
+        data-testid="common_register__element-invalid_register"
+        hidden={ !failedTryLogin }
+      >
+        {error}
+      </p>
     </>
   );
 }
