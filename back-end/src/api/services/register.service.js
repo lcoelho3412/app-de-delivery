@@ -11,7 +11,7 @@ const createUser = async (body) => {
     where: { email },
   });
 
-  if (user) throw httpException(422, "Email já cadastrado");
+  if (user) throw httpException(409, "Email já cadastrado");
 
   const newUser = await User.create({
     ...body,
