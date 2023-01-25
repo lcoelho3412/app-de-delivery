@@ -13,14 +13,21 @@ export default function Registro() {
     password: '',
   });
 
-  const validation = useCallback(
-    () => (/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(newUser.email)
-      && /^.{6,}$/.test(newUser.password)
-      && /^.{,12}$/.test(newUser.name)
-      ? setDisable(false)
-      : setDisable(true)),
-    [newUser],
-  );
+  const validation = useCallback(() => {
+    const email = /\S+@\S+\.\S+/.test(newUser.email);
+    const doze = 12;
+    const seis = 6;
+
+    if (
+      email
+      && newUser.password.length >= seis
+      && newUser.name.length >= doze
+    ) {
+      setDisable(false);
+    } else {
+      setDisable(true);
+    }
+  }, [newUser]);
 
   const changeState = ({ target }) => {
     const { name, value } = target;
@@ -37,7 +44,7 @@ export default function Registro() {
     try {
       await request('/register', { name, email, password });
 
-      history.push('/');
+      history.push('/customer/products');
     } catch (e) {
       setError(e.response.data.message);
       setFailedTryLogin(true);
@@ -91,7 +98,7 @@ export default function Registro() {
           type="submit"
           data-testid="common_register__button-register"
           disabled={ disable }
-          onClick={ cadastrar }
+          onClick={ (event) => cadastrar(event) }
         >
           Cadastrar
         </button>
