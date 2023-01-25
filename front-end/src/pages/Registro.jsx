@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { registerService } from '../services/requests';
+import { request } from '../services/requests';
 
 export default function Registro() {
   const history = useHistory();
   const [error, setError] = useState('');
-  // const [disable, setDisable] = useState(true);
 
   const [failedTryLogin, setFailedTryLogin] = useState(false);
   const [newUser, setNewUser] = useState({
@@ -27,13 +26,11 @@ export default function Registro() {
     const { name, email, password } = newUser;
 
     try {
-      const data = await registerService({ name, email, password });
-
-      if (data.message) throw new Error(data.message);
+      await request('/register', { name, email, password });
 
       history.push('/');
     } catch (e) {
-      setError(e.message);
+      setError(e.response.data.message);
       setFailedTryLogin(true);
     }
   };
