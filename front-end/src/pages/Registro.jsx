@@ -1,23 +1,32 @@
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { request } from '../services/requests';
 
 export default function Registro() {
   const history = useHistory();
   const [error, setError] = useState('');
-
+  const [disable, setDisable] = useState(true);
   const [failedTryLogin, setFailedTryLogin] = useState(false);
   const [newUser, setNewUser] = useState({
-    uname: '',
+    name: '',
     email: '',
     password: '',
   });
+
+  const validation = useCallback(
+    () => (/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(newUser.email)
+      && /^.{6,}$/.test(newUser.password)
+      && /^.{,12}$/.test(newUser.name)
+      ? setDisable(false)
+      : setDisable(true)),
+    [newUser],
+  );
 
   const changeState = ({ target }) => {
     const { name, value } = target;
 
     setNewUser({ ...newUser, [name]: value });
-    // validation();
+    validation();
   };
 
   const cadastrar = async (event) => {
@@ -34,6 +43,10 @@ export default function Registro() {
       setFailedTryLogin(true);
     }
   };
+
+  useEffect(() => {
+    validation();
+  }, [newUser, validation]);
 
   return (
     <>
@@ -75,10 +88,10 @@ export default function Registro() {
 
         <br />
         <button
-          type="button"
+          type="submit"
           data-testid="common_register__button-register"
+          disabled={ disable }
           onClick={ cadastrar }
-          // disabled={ disable }
         >
           Cadastrar
         </button>
