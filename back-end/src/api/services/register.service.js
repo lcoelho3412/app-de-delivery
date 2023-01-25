@@ -1,6 +1,6 @@
-const md5 = require("md5");
-const { User } = require("../../database/models");
-const httpException = require("../utils/http.exception");
+const md5 = require('md5');
+const { User } = require('../../database/models');
+const httpException = require('../utils/http.exception');
 
 const createUser = async (body) => {
   const { email, password } = body;
@@ -11,12 +11,12 @@ const createUser = async (body) => {
     where: { email },
   });
 
-  if (user) throw httpException(409, "Email já cadastrado");
+  if (user) throw httpException(409, 'Email já cadastrado');
 
   const newUser = await User.create({
     ...body,
     password: hashedPassword,
-    role: "customer",
+    role: 'customer',
   });
 
   return newUser;
