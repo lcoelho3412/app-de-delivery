@@ -1,33 +1,45 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 export default function NavBar() {
   const [user, setUser] = useState('');
+  const history = useHistory();
 
   useEffect(() => {
-    const userInfo = localStorage.getItem('data');
+    const userInfo = localStorage.getItem('user');
 
     setUser(JSON.parse(userInfo));
   }, []);
 
   return (
-    <div>
+    <nav>
       <div>
-        <Link to="/customer/products">
-          <button type="button">Produtos</button>
-        </Link>
-        <Link to="/customer/orders">
-          <button type="button">Meus pedidos</button>
-        </Link>
+        <a
+          data-testid="customer_products__element-navbar-link-products"
+          href="/customer/products"
+        >
+          Produtos
+        </a>
+        <a
+          data-testid="customer_products__element-navbar-link-orders"
+          href="/customer/orders"
+        >
+          Meus Pedidos
+        </a>
+        <span data-testid="customer_products__element-navbar-user-full-name">
+          {user.name}
+        </span>
       </div>
-      <div>
-        <p>{user.name}</p>
-      </div>
-      <div>
-        <Link to="/login">
-          <button type="button">Sair</button>
-        </Link>
-      </div>
-    </div>
+      <button
+        data-testid="customer_products__element-navbar-link-logout"
+        type="button"
+        onClick={ () => {
+          localStorage.removeItem('user');
+          history.push('/');
+        } }
+      >
+        Sair
+      </button>
+    </nav>
   );
 }
