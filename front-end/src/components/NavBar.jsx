@@ -1,21 +1,15 @@
-/* import { useEffect, useState } from 'react'; */
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 export default function NavBar() {
-  /* const [user, setUser] = useState({}); */
+  const [user, setUser] = useState('');
 
-  const fetchUser = () => {
-    const userInfo = localStorage.getItem('user');
-    const test = JSON.parse(userInfo);
-    console.log('file: NavBar.jsx:9 ~ fetchUser ~ userInfo', userInfo);
-    return test;
-  };
-  console.log('file: NavBar.jsx:8 ~ fetchUser ~ fetchUser', fetchUser);
+  useEffect(() => {
+    const userInfo = localStorage.getItem('data');
 
-  /*   useEffect(() => {
-    fetchUser();
+    setUser(JSON.parse(userInfo));
   }, []);
- */
+
   return (
     <div>
       <div>
