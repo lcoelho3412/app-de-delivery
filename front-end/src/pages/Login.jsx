@@ -11,7 +11,7 @@ export default function Login() {
   const [error, setError] = useState('');
 
   const validation = useCallback(
-    () => (/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(user.email)
+    () => (/\S+@\S+\.\S+/.test(user.email)
       && /^.{6,}$/.test(user.password)
       ? setDisable(false)
       : setDisable(true)),

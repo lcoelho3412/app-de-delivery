@@ -13,13 +13,17 @@ const createUser = async (body) => {
 
   if (user) throw httpException(409, 'Email já cadastrado');
 
-  const newUser = await User.create({
+  await User.create({
     ...body,
     password: hashedPassword,
     role: 'customer',
   });
 
-  return newUser;
+  const newUser = await User.findOne({ where: { email } });
+
+  const { id, role, ...nUser } = newUser.dataValues;
+
+  return nUser;
 };
 
 module.exports = { createUser };

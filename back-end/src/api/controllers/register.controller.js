@@ -9,7 +9,7 @@ const createUser = async (req, res) => {
 
   const newUser = await service.register.createUser(req.body);
 
-  res.status(201).json(newUser);
+  return res.status(201).json(newUser);
 };
 
 module.exports = {
