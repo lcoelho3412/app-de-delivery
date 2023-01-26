@@ -1,17 +1,14 @@
-// import { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 export default function NavBar() {
-  // const [user, setUser] = useState({});
+  const [user, setUser] = useState('');
 
-  // const fetchUser = () => {
-  //   const userInfo = localStorage.getItem("user");
-  //   setUser(userInfo);
-  // };
+  useEffect(() => {
+    const userInfo = localStorage.getItem('data');
 
-  // useEffect(() => {
-  //   fetchUser();
-  // }, []);
+    setUser(JSON.parse(userInfo));
+  }, []);
 
   return (
     <div>
@@ -24,7 +21,7 @@ export default function NavBar() {
         </Link>
       </div>
       <div>
-        <p>{user.username}</p>
+        <p>{user.name}</p>
       </div>
       <div>
         <Link to="/login">
