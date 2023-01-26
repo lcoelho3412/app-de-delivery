@@ -10,7 +10,14 @@ const createToken = (data) => {
     algorithm: 'HS256',
   });
 
-  return token;
+  const decoded = jwt.decode(token);
+
+  const { id, ...response } = decoded.data;
+
+  return {
+    ...response,
+    token,
+  };
 };
 
 const validateToken = (token) => {
