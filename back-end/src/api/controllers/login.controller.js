@@ -1,6 +1,6 @@
-const service = require("../services");
-const validateSchema = require("../services/validations/validationSchema");
-const { loginSchema } = require("../services/validations/schema");
+const service = require('../services');
+const validateSchema = require('../services/validations/validationSchema');
+const { loginSchema } = require('../services/validations/schema');
 
 const signIn = async (req, res) => {
   const { body } = req;
