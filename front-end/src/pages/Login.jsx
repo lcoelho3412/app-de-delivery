@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import GlobalContext from '../contexts/GlobalContext';
-import { request } from '../services/requests';
+import { requestPost } from '../services/requests';
 
 export default function Login() {
   const history = useHistory();
@@ -24,12 +24,13 @@ export default function Login() {
     const { email, password } = user;
 
     try {
-      const data = await request('/login', { email, password });
+      const data = await requestPost('/login', { email, password });
 
       history.push('/customer/products');
 
-      localStorage.setItem('data', JSON.stringify(data));
+      localStorage.setItem('user', JSON.stringify(data));
     } catch (e) {
+      console.log(e);
       setError(e.response.data.message);
       setFailedTryLogin(true);
     }
