@@ -24,11 +24,11 @@ export default function Login() {
     const { email, password } = user;
 
     try {
-      const test = await request('/login', { email, password });
+      const data = await request('/login', { email, password });
 
       history.push('/customer/products');
 
-      localStorage.setItem('token', JSON.stringify(test));
+      localStorage.setItem('data', JSON.stringify(data));
     } catch (e) {
       setError(e.response.data.message);
       setFailedTryLogin(true);
