@@ -16,9 +16,9 @@ router.get(
 router.get(
   '/antarctica_pilsen_300ml.jpg',
   (_req, res) => res.sendFile(path.resolve(
-    '..', 
-    'assets', 
-    'images', 
+    '..',
+    'assets',
+    'images',
     'antarctica_pilsen_300ml.jpg',
 )),
 );
@@ -36,9 +36,9 @@ router.get(
 router.get(
   '/skol_beats_senses_313ml.jpg',
   (_req, res) => res.sendFile(path.resolve(
-    '..', 
-    'assets', 
-    'images', 
+    '..',
+    'assets',
+    'images',
     'skol_beats_senses_313ml.jpg',
 )),
 );
@@ -51,9 +51,9 @@ router.get(
 router.get(
   '/brahma_duplo_malte_350ml.jpg',
   (_req, res) => res.sendFile(path.resolve(
-    '..', 
-    'assets', 
-    'images', 
+    '..',
+    'assets',
+    'images',
     'brahma_duplo_malte_350ml.jpg',
 )),
 );
@@ -66,9 +66,9 @@ router.get(
 router.get(
   '/skol_beats_senses_269ml.jpg',
   (_req, res) => res.sendFile(path.resolve(
-    '..', 
-    'assets', 
-    'images', 
+    '..',
+    'assets',
+    'images',
     'skol_beats_senses_269ml.jpg',
 )),
 );
