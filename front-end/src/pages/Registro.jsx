@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { request } from '../services/requests';
+import { requestPost } from '../services/requests';
 
 export default function Registro() {
   const history = useHistory();
@@ -42,7 +42,7 @@ export default function Registro() {
     const { name, email, password } = newUser;
 
     try {
-      await request('/register', { name, email, password });
+      await requestPost('/register', { name, email, password });
 
       history.push('/customer/products');
     } catch (e) {

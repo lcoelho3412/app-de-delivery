@@ -1,13 +1,19 @@
 import { useEffect, useState } from 'react';
-// import NavBar from '../components/NavBar';
+import { useHistory } from 'react-router-dom';
+import NavBar from '../components/NavBar';
 import ProductsComponents from '../components/ProductsComponent';
-import { request } from '../services/requests';
+import { requestProducts } from '../services/requests';
 
 export default function Products() {
   const [products, setProducts] = useState([]);
+  const history = useHistory();
 
   const fetchProducts = async () => {
-    const data = await request('/products', 'get');
+    const { token } = JSON.parse(localStorage.getItem('user'));
+
+    if (!token) history.push('/');
+
+    const data = await requestProducts(token);
 
     setProducts(data);
   };
@@ -16,13 +22,14 @@ export default function Products() {
 
   return (
     <div>
-      {/* <NavBar /> */}
+      <NavBar />
       {products.map(({ id, name, price, urlImage }) => (
         <ProductsComponents
           key={ id }
           name={ name }
-          price={ price }
+          price={ Number(price).toFixed(2) }
           urlImage={ urlImage }
+          id={ id }
         />
       ))}
     </div>

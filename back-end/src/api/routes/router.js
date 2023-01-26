@@ -9,6 +9,4 @@ router.use('/register', routes.register);
 
 router.use('/products', routes.products);
 
-router.use('/images', routes.images);
-
 module.exports = router;

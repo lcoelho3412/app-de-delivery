@@ -22,7 +22,7 @@ const signIn = async (body) => {
 
   const token = createToken(userWithoutPassword);
 
-  console.log("file: login.service.js:27 ~ signIn ~ token", token)
+  // console.log("file: login.service.js:27 ~ signIn ~ token", token)
   return token;
 };
 
