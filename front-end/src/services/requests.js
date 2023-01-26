@@ -5,8 +5,8 @@ const api = axios.create({
   headers: 'Access-Control-Allow-Origin',
 });
 
-export const request = async (endpoint, body) => {
-  const { data } = await api.post(endpoint, body);
+export const request = async (endpoint, method, body) => {
+  const { data } = await api[method](endpoint, body || null);
 
   return data;
 };

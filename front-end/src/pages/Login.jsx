@@ -24,12 +24,13 @@ export default function Login() {
     const { email, password } = user;
 
     try {
-      const { token } = await request('/login', { email, password });
+      const { token } = await request('/login', 'post', { email, password });
 
       history.push('/customer/products');
 
       localStorage.setItem('token', token);
     } catch (e) {
+      console.log(e);
       setError(e.response.data.message);
       setFailedTryLogin(true);
     }
