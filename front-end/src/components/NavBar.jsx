@@ -82,7 +82,7 @@ export default function NavBar() {
         data-testid="customer_products__element-navbar-link-logout"
         type="button"
         onClick={ () => {
-          localStorage.removeItem('user');
+          localStorage.clear();
           history.push('/');
         } }
       >

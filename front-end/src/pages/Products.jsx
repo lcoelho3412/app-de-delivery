@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import CartButton from '../components/CartButton';
 import NavBar from '../components/NavBar';
 import ProductsComponents from '../components/ProductsComponent';
 import { requestProducts } from '../services/requests';
@@ -18,7 +19,9 @@ export default function Products() {
     setProducts(data);
   };
 
-  useEffect(fetchProducts);
+  console.log('teste');
+
+  useEffect(fetchProducts, []);
 
   return (
     <div>
@@ -32,6 +35,7 @@ export default function Products() {
           id={ id }
         />
       ))}
+      <CartButton />
     </div>
   );
 }
