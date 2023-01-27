@@ -11,4 +11,14 @@ const registerSchema = Joi.object({
   password: Joi.string().min(6).required(),
 });
 
-module.exports = { loginSchema, registerSchema };
+const saleSchema = Joi.object({
+  id: Joi.number().required(),
+  sellerId: Joi.number().required(),
+  totalPrice: Joi.number().required(),
+  deliveryAddress: Joi.string().required(),
+  deliveryNumber: Joi.string().required(),
+  saleDate: Joi.date().required(),
+  status: Joi.string().required(),
+});
+
+module.exports = { loginSchema, registerSchema, saleSchema };
