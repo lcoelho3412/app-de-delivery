@@ -12,11 +12,11 @@ const registerSchema = Joi.object({
 });
 
 const saleSchema = Joi.object({
-  id: Joi.number().required(),
+  userId: Joi.number().required(),
   sellerId: Joi.number().required(),
-  totalPrice: Joi.number().required(),
+  totalPrice: Joi.number().precision(2).required(),
   deliveryAddress: Joi.string().required(),
-  deliveryNumber: Joi.string().required(),
+  deliveryNumber: Joi.number().required(),
   saleDate: Joi.date().required(),
   status: Joi.string().required(),
 });
