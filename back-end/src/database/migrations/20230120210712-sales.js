@@ -36,10 +36,10 @@ module.exports = {
         type: Sequelize.DECIMAL(9, 2),
         field: 'total_price',
       },
-      deliveryAdress: {
+      deliveryAddress: {
         allowNull: false,
         type: Sequelize.STRING(100),
-        field: 'delivery_adress',
+        field: 'delivery_address',
       },
       deliveryNumber: {
         allowNull: false,
