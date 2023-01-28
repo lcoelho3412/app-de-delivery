@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { Login, NotFound, Registro, Products } from '../pages';
-import Checkout from '../pages/Checkout';
+
+import { Login, NotFound, Register, Products, Checkout } from '../pages';
 
 export default function Routes() {
   return (
@@ -8,7 +8,7 @@ export default function Routes() {
       <Switch>
         <Route exact path="/" component={ Login } />
         <Route exact path="/login" component={ Login } />
-        <Route exact path="/register" component={ Registro } />
+        <Route exact path="/register" component={ Register } />
         <Route exact path="/customer/products" component={ Products } />
         <Route exact path="/customer/checkout" component={ Checkout } />
 
