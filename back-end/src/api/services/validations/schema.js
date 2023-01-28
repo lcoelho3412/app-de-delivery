@@ -17,8 +17,7 @@ const saleSchema = Joi.object({
   totalPrice: Joi.number().precision(2).required(),
   deliveryAddress: Joi.string().required(),
   deliveryNumber: Joi.number().required(),
-  saleDate: Joi.date().required(),
-  status: Joi.string().required(),
+  soldProducts: Joi.array().required(),
 });
 
 module.exports = { loginSchema, registerSchema, saleSchema };
