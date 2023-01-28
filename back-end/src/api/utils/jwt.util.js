@@ -21,11 +21,16 @@ const createToken = (data) => {
 };
 
 const validateToken = (token) => {
-  const { data } = jwt.verify(token, process.env.JWT_SECRET);
+  try {
+    const { data } = jwt.verify(token, JWT_SECRET);
 
-  console.log(data);
+    return data;
+  } catch (error) {
+    const e = new Error('Expired or invalid token');
+    e.status = 401;
 
-  return data;
+    throw e;
+  }
 };
 
 const decode = (token) => {

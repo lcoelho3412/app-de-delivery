@@ -2,5 +2,6 @@ import NotFound from './NotFound';
 import Login from './Login';
 import Register from './Register';
 import Products from './Products';
+import Admin from './Admin';
 
-export { NotFound, Login, Register, Products };
+export { NotFound, Login, Register, Products, Admin };
