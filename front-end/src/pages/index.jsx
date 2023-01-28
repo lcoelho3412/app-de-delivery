@@ -1,6 +1,7 @@
 import NotFound from './NotFound';
 import Login from './Login';
-import Registro from './Registro';
+import Register from './Register';
 import Products from './Products';
+import Checkout from './Checkout';
 
-export { NotFound, Login, Registro, Products };
+export { NotFound, Login, Register, Products, Checkout };
