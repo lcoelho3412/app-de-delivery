@@ -1,6 +1,7 @@
 require('dotenv/config');
 const jwt = require('jsonwebtoken');
 const fs = require('fs');
+const httpException = require('./http.exception');
 
 const JWT_SECRET = fs.readFileSync('jwt.evaluation.key', { encoding: 'utf-8' });
 
@@ -26,10 +27,7 @@ const validateToken = (token) => {
 
     return data;
   } catch (error) {
-    const e = new Error('Expired or invalid token');
-    e.status = 401;
-
-    throw e;
+    throw httpException(401, 'Expired or invalid token');
   }
 };
 
