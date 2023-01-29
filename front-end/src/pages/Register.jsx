@@ -42,7 +42,12 @@ export default function Registro() {
     const { name, email, password } = newUser;
 
     try {
-      await requestPost('/register', { name, email, password });
+      await requestPost('/register', {
+        name,
+        email,
+        password,
+        role: 'customer',
+      });
 
       history.push('/customer/products');
     } catch (e) {
