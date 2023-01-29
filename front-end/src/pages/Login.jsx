@@ -36,7 +36,6 @@ export default function Login() {
         localStorage.setItem('user', JSON.stringify(data));
       }
     } catch (e) {
-      console.log(e);
       setError(e.response.data.message);
       setFailedTryLogin(true);
     }
