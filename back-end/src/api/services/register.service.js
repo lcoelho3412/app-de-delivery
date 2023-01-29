@@ -3,7 +3,7 @@ const { User } = require('../../database/models');
 const httpException = require('../utils/http.exception');
 
 const createUser = async (body) => {
-  const { email, password } = body;
+  const { email, password, role } = body;
 
   const hashedPassword = md5(password);
 
@@ -16,12 +16,12 @@ const createUser = async (body) => {
   await User.create({
     ...body,
     password: hashedPassword,
-    role: 'customer',
+    role,
   });
 
   const newUser = await User.findOne({ where: { email } });
 
-  const { id, role, ...nUser } = newUser.dataValues;
+  const { id, role: _, ...nUser } = newUser.dataValues;
 
   return nUser;
 };
