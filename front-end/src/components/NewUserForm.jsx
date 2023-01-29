@@ -9,7 +9,7 @@ export default function NewUserForm() {
     name: '',
     email: '',
     password: '',
-    role: 'customer',
+    role: '',
   });
 
   const validation = useCallback(() => {
@@ -41,9 +41,8 @@ export default function NewUserForm() {
     const { name, email, password, role } = newUser;
 
     try {
-      await requestPost('/admin/manage', { name, email, password, role });
+      await requestPost('/register', { name, email, password, role });
     } catch (e) {
-      console.log(e);
       setError(e.response.data.message);
       setFailedTryLogin(true);
     }
@@ -91,16 +90,20 @@ export default function NewUserForm() {
           />
         </label>
 
+        <br />
         <label htmlFor="role">
-          <br />
           Tipo
           <select
             name="role"
             data-testid="admin_manage__select-role"
+            defaultValue="empty"
             onChange={ changeState }
           >
+            <option value="empty" disabled hidden>
+              {' '}
+            </option>
             <option value="customer">Cliente</option>
-            <option value="admin">Pessoa administra</option>
+            <option value="administrator">Pessoa administra</option>
             <option value="seller">Pessoa vendedora</option>
           </select>
         </label>
@@ -115,9 +118,7 @@ export default function NewUserForm() {
         </button>
       </form>
 
-      <p hidden={ !failedTryLogin }>
-        {error}
-      </p>
+      <p hidden={ !failedTryLogin }>{error}</p>
     </>
   );
 }
