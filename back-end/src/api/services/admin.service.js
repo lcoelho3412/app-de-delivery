@@ -11,14 +11,13 @@ const findAll = async () => {
 
 const findById = async (id) => {
   const user = await User.findOne({
+    attributes: { exclude: ['password'] },
     where: { id },
   });
 
   if (!user) throw httpException(409, 'Nenhum usuário cadastrado');
 
-  const { password: _, ...userWithoutPassword } = user.dataValues;
-
-  return userWithoutPassword;
+  return user;
 };
 
 const remove = async (id) => {

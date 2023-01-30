@@ -8,6 +8,7 @@ const createUser = async (body) => {
   const hashedPassword = md5(password);
 
   const user = await User.findOne({
+    attributes: { exclude: ['password'] },
     where: { email },
   });
 
@@ -19,11 +20,12 @@ const createUser = async (body) => {
     role,
   });
 
-  const newUser = await User.findOne({ where: { email } });
+  const newUser = await User.findOne({
+    attributes: { exclude: ['password'] },
+    where: { email },
+  });
 
-  const { id, role: _, ...userWithoutPassword } = newUser.dataValues;
-
-  return userWithoutPassword;
+  return newUser;
 };
 
 module.exports = { createUser };
