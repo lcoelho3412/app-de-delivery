@@ -21,6 +21,14 @@ export const requestGet = async (endpoint, token) => {
   return data;
 };
 
+export const requestPostAdmin = async (endpoint, body, token) => {
+  await api.post(endpoint, body, {
+    headers: {
+      Authorization: token,
+    },
+  });
+};
+
 export const requestDelete = async (endpoint, token) => {
   await api.delete(endpoint, {
     headers: {
