@@ -1,7 +1,10 @@
+const md5 = require('md5');
+const sequelize = require('sequelize');
+
 const { User } = require('../../database/models');
 const httpException = require('../utils/http.exception');
 
-const notAdmin = "Você não é admin";
+const notAdmin = 'Você não é admin';
 
 const createUser = async (body, role) => {
   if (role !== 'administrator') throw httpException(409, notAdmin);
@@ -30,8 +33,8 @@ const findAll = async () => {
   const users = await User.findAll({
     where: {
       role: {
-        [sequelize.Op.not]: 'administrator'
-      }
+        [sequelize.Op.not]: 'administrator',
+      },
     },
     attributes: { exclude: ['password'] },
   });

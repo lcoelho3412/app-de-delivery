@@ -1,12 +1,14 @@
-const { decode } = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
+const fs = require('fs');
+// const { decode } = require('jsonwebtoken');
 const service = require('../services');
 const httpException = require('../utils/http.exception');
 const { validateToken } = require('../utils/jwt.util');
 
-const jwt = require('jsonwebtoken');
-const fs = require('fs');
 const { registerSchemaAdmin } = require('../services/validations/schema');
 const validateSchema = require('../services/validations/validationSchema');
+
+const { decode } = jwt;
 
 const JWT_SECRET = fs.readFileSync('jwt.evaluation.key', { encoding: 'utf-8' });
 
