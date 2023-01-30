@@ -4,7 +4,7 @@ import { requestDelete } from '../services/requests';
 export default function ListUsers({ name, email, role, id, index }) {
   const deleteUser = async (user) => {
     const { token } = JSON.parse(localStorage.getItem('user'));
-    await requestDelete(`/admin/${user}`, token);
+    await requestDelete(`/admin/manage/${user}`, token);
   };
   return (
     <>

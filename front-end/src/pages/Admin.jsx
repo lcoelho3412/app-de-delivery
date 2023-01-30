@@ -14,7 +14,7 @@ export default function Admin() {
 
     if (role !== 'administrator') history.push('/');
 
-    const data = await requestGet('/admin', token);
+    const data = await requestGet('/admin/manage', token);
 
     setUsers(data);
   };
