@@ -11,6 +11,16 @@ export const requestPost = async (endpoint, body) => {
   return data;
 };
 
+export const requestGet = async (endpoint, token) => {
+  const { data } = await api.get(endpoint, {
+    headers: {
+      Authorization: token,
+    },
+  });
+
+  return data;
+};
+
 export const requestProducts = async (token) => {
   try {
     const { data } = await api.get('/products', {
