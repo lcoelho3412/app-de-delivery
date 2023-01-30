@@ -1,16 +1,28 @@
-import { useContext } from 'react';
+import { useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import NavBar from '../components/NavBar';
 import GlobalContext from '../contexts/GlobalContext';
 
 export default function Checkout() {
-  const { cart, total } = useContext(GlobalContext);
+  const { cart, total, setCart, setTotal } = useContext(GlobalContext);
 
   const history = useHistory();
 
   const { token } = JSON.parse(localStorage.getItem('user'));
 
   if (!token) history.push('/login');
+
+  const handleClick = ({ target }) => {
+    const filteredCart = cart.filter((element) => target.name !== element.name);
+
+    setCart(filteredCart);
+  };
+
+  useEffect(() => {
+    const newTotal = cart.reduce((acc, curr) => curr.subTotal + acc, 0);
+
+    setTotal(newTotal);
+  }, [cart]);
 
   return (
     <>
@@ -43,8 +55,10 @@ export default function Checkout() {
             {subTotal.toFixed(2).replace('.', ',')}
           </span>
           <button
+            name={ name }
             type="button"
             data-testid={ `customer_checkout__element-order-table-remove-${index}` }
+            onClick={ handleClick }
           >
             Remover
           </button>
