@@ -4,7 +4,14 @@ const httpException = require('../utils/http.exception');
 const findAll = async () => {
   const users = await User.findAll({});
 
-  return users;
+  const userWithoutPassword = users.map((user) => ({
+    id: user.id,
+    email: user.email,
+    name: user.name,
+    role: user.role,
+  }));
+
+  return userWithoutPassword;
 };
 
 const findById = async (id) => {
@@ -14,7 +21,9 @@ const findById = async (id) => {
 
   if (!user) throw httpException(409, 'Nenhum usuário cadastrado');
 
-  return user;
+  const { password: _, ...userWithoutPassword } = user.dataValues;
+
+  return userWithoutPassword;
 };
 
 const remove = async (id) => {
