@@ -2,16 +2,11 @@ const { User } = require('../../database/models');
 const httpException = require('../utils/http.exception');
 
 const findAll = async () => {
-  const users = await User.findAll({});
+  const users = await User.findAll({
+    attributes: { exclude: ['password'] },
+  });
 
-  const userWithoutPassword = users.map((user) => ({
-    id: user.id,
-    email: user.email,
-    name: user.name,
-    role: user.role,
-  }));
-
-  return userWithoutPassword;
+  return users;
 };
 
 const findById = async (id) => {
