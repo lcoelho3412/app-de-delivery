@@ -8,10 +8,7 @@ export default function CartButton() {
 
   useEffect(() => {
     localStorage.setItem('cart', JSON.stringify(cart));
-    const newTotal = cart.reduce(
-      (acc, curr) => curr.subTotal + acc,
-      0,
-    );
+    const newTotal = cart.reduce((acc, curr) => curr.subTotal + acc, 0);
     setTotal(newTotal);
   }, [cart]);
 
@@ -24,11 +21,8 @@ export default function CartButton() {
     >
       Ver Carrinho
       {' '}
-      <span
-        data-testid="customer_products__checkout-bottom-value"
-      >
+      <span data-testid="customer_products__checkout-bottom-value">
         {total.toFixed(2).replace('.', ',')}
-
       </span>
     </button>
   );
