@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { requestPost } from '../services/requests';
+import { requestPostAdmin } from '../services/requests';
 
 export default function NewUserForm() {
   const [error, setError] = useState('');
@@ -21,6 +21,7 @@ export default function NewUserForm() {
       email
       && newUser.password.length >= six
       && newUser.name.length >= twelve
+      && newUser.role.length > 2
     ) {
       setDisable(false);
     } else {
@@ -41,7 +42,13 @@ export default function NewUserForm() {
     const { name, email, password, role } = newUser;
 
     try {
-      await requestPost('/admin/manage', { name, email, password, role });
+      const { token } = JSON.parse(localStorage.getItem('user'));
+
+      await requestPostAdmin(
+        '/admin/manage',
+        { name, email, password, role },
+        token,
+      );
     } catch (e) {
       setError(e.response.data.message);
       setFailedTryLogin(true);
