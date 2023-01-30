@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import PropTypes from 'prop-types';
 import { useEffect, useContext, useState } from 'react';
 import GlobalContext from '../contexts/GlobalContext';
@@ -26,7 +27,7 @@ export default function ProductsComponents({ name, price, urlImage, id }) {
     }
   }, [quantity]);
 
-  console.log('card');
+  // console.log('card');
 
   return (
     <div>

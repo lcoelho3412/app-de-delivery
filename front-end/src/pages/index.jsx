@@ -4,5 +4,6 @@ import Register from './Register';
 import Products from './Products';
 import Admin from './Admin';
 import Checkout from './Checkout';
+import CustomerOrders from './CustomerOrders';
 
-export { NotFound, Login, Register, Products, Checkout, Admin };
+export { NotFound, Login, Register, Products, Checkout, Admin, CustomerOrders };
