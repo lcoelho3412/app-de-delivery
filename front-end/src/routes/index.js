@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { Login, NotFound, Register, Products, Checkout } from '../pages';
+import { Login, NotFound, Register, Products, Checkout, Admin } from '../pages';
 
 export default function Routes() {
   return (
@@ -10,9 +10,11 @@ export default function Routes() {
         <Route exact path="/register" component={ Register } />
         <Route exact path="/customer/products" component={ Products } />
         <Route exact path="/customer/checkout" component={ Checkout } />
-
+        <Route exact path="/admin/manage" component={ Admin } />
         <Route path="*" component={ NotFound } />
       </Switch>
     </BrowserRouter>
   );
 }
+
+// mudar BrowserRouter para HashRouter para fazer o deploy quando terminar o projeto
