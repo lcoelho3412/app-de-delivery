@@ -1,10 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import CartButton from '../components/CartButton';
-import NavBar from '../components/NavBar';
-import ProductsComponents from '../components/ProductsComponent';
-import { requestProducts } from '../services/requests';
+import { requestProducts } from '../../services/requests';
+import ProductsComponents from '../../components/Client/ProductsComponent';
+import CartButton from '../../components/Client/CartButton';
+import NavBar from '../../components/Common/NavBar';
 
 export default function Products() {
   const [products, setProducts] = useState([]);

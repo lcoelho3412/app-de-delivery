@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
-import GlobalContext from '../contexts/GlobalContext';
-import { requestPost } from '../services/requests';
+import { requestPost } from '../../services/requests';
+import GlobalContext from '../../contexts/GlobalContext';
 
 export default function Login() {
   const history = useHistory();

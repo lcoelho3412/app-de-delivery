@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import GlobalContext from '../contexts/GlobalContext';
+import GlobalContext from '../../contexts/GlobalContext';
 
 export default function CartButton() {
   const { cart, total, setTotal } = useContext(GlobalContext);

@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
-import NavBar from '../components/NavBar';
-import GlobalContext from '../contexts/GlobalContext';
+import GlobalContext from '../../contexts/GlobalContext';
+import NavBar from '../../components/Common/NavBar';
 
 export default function Checkout() {
   const history = useHistory();
