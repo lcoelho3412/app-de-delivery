@@ -28,7 +28,11 @@ const createUser = async (body, role) => {
 
 const findAll = async () => {
   const users = await User.findAll({
-    where: { role: !'administrator' },
+    where: {
+      role: {
+        [sequelize.Op.not]: 'administrator'
+      }
+    },
     attributes: { exclude: ['password'] },
   });
 
