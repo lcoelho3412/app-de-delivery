@@ -7,35 +7,38 @@ export default function ListUsers({ name, email, role, id, index }) {
     await requestDelete(`/admin/manage/${user}`, token);
   };
   return (
-    <>
-      <div data-testid={ `admin_manage__element-user-table-item-number-${id}` }>
-        Item:
-        {index}
-      </div>
+    <table>
+      <tr>
+        <th>Item</th>
+        <th>Nome</th>
+        <th>Email</th>
+        <th>Tipo</th>
+        <th>Excluir</th>
+      </tr>
 
-      <div data-testid="admin_manage__input-email">
-        Nome:
-        {name}
-      </div>
+      <tr>
+        <td data-testid={ `admin_manage__element-user-table-item-number-${id}` }>
+          {index}
+        </td>
 
-      <div data-testid={ `admin_manage__element-user-table-email-${id}` }>
-        Email:
-        {email}
-      </div>
+        <td data-testid="admin_manage__input-email">{name}</td>
 
-      <div data-testid={ `admin_manage__element-user-table-role-${id}` }>
-        Role:
-        {role}
-      </div>
+        <td data-testid={ `admin_manage__element-user-table-email-${id}` }>
+          {email}
+        </td>
 
-      <button
-        type="submit"
-        data-testid={ `admin_manage__element-user-table-remove-${id}` }
-        onClick={ () => deleteUser(id) }
-      >
-        Excluir
-      </button>
-    </>
+        <td data-testid={ `admin_manage__element-user-table-role-${id}` }>
+          {role}
+        </td>
+        <button
+          type="submit"
+          data-testid={ `admin_manage__element-user-table-remove-${id}` }
+          onClick={ () => deleteUser(id) }
+        >
+          Excluir
+        </button>
+      </tr>
+    </table>
   );
 }
 
