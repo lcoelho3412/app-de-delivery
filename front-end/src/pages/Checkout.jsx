@@ -1,9 +1,16 @@
 import { useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import NavBar from '../components/NavBar';
 import GlobalContext from '../contexts/GlobalContext';
 
 export default function Checkout() {
   const { cart, total } = useContext(GlobalContext);
+
+  const history = useHistory();
+
+  const { token } = JSON.parse(localStorage.getItem('user'));
+
+  if (!token) history.push('/login');
 
   return (
     <>
@@ -28,12 +35,12 @@ export default function Checkout() {
           <span
             data-testid={ `customer_checkout__element-order-table-unit-price-${index}` }
           >
-            {unitPrice}
+            {unitPrice.replace('.', ',')}
           </span>
           <span
             data-testid={ `customer_checkout__element-order-table-sub-total-${index}` }
           >
-            {subTotal}
+            {subTotal.toFixed(2).replace('.', ',')}
           </span>
           <button
             type="button"

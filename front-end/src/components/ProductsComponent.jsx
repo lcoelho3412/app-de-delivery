@@ -26,8 +26,6 @@ export default function ProductsComponents({ name, price, urlImage, id }) {
     }
   }, [quantity]);
 
-  console.log('card');
-
   return (
     <div>
       <span data-testid={ `customer_products__element-card-title-${id}` }>
