@@ -11,59 +11,43 @@ export default function Checkout() {
       {cart.map(({ productId, name, quantity, unitPrice, subTotal }, index) => (
         <div key={ productId }>
           <span
-            data-testid={
-              `customer_checkout__element-order-table-item-number-${index}`
-            }
+            data-testid={ `customer_checkout__element-order-table-item-number-${index}` }
           >
             {index + 1}
           </span>
           <span
-            data-testid={
-              `customer_checkout__element-order-table-name-${index}`
-            }
+            data-testid={ `customer_checkout__element-order-table-name-${index}` }
           >
             {name}
           </span>
           <span
-            data-testid={
-              `customer_checkout__element-order-table-quantity-${index}`
-            }
+            data-testid={ `customer_checkout__element-order-table-quantity-${index}` }
           >
             {quantity}
           </span>
           <span
-            data-testid={
-              `customer_checkout__element-order-table-unit-price-${index}`
-            }
+            data-testid={ `customer_checkout__element-order-table-unit-price-${index}` }
           >
             {unitPrice}
           </span>
           <span
-            data-testid={
-              `customer_checkout__element-order-table-sub-total-${index}`
-            }
+            data-testid={ `customer_checkout__element-order-table-sub-total-${index}` }
           >
             {subTotal}
           </span>
           <button
             type="button"
-            data-testid={
-              `customer_checkout__element-order-table-remove-${index}`
-            }
+            data-testid={ `customer_checkout__element-order-table-remove-${index}` }
           >
             Remover
           </button>
         </div>
       ))}
-      <span
-        data-testid="customer_checkout__element-order-total-price"
-      >
+      <span data-testid="customer_checkout__element-order-total-price">
         {total.toFixed(2).replace('.', ',')}
       </span>
       <form>
-        <select
-          data-testid="customer_checkout__select-seller"
-        >
+        <select data-testid="customer_checkout__select-seller">
           <option value="Fulana Pereira">Fulana Pereira</option>
         </select>
         <input
@@ -81,7 +65,6 @@ export default function Checkout() {
           data-testid="customer_checkout__button-submit-order"
         >
           finalizar pedido
-
         </button>
       </form>
     </>

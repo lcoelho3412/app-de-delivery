@@ -30,18 +30,13 @@ export default function ProductsComponents({ name, price, urlImage, id }) {
 
   return (
     <div>
-      <span
-        data-testid={ `customer_products__element-card-title-${id}` }
-      >
+      <span data-testid={ `customer_products__element-card-title-${id}` }>
         Name:
         {name}
       </span>
       <br />
-      <p
-        data-testid={ `customer_products__element-card-price-${id}` }
-      >
-        {(price).toString().replace('.', ',')}
-
+      <p data-testid={ `customer_products__element-card-price-${id}` }>
+        {price.toString().replace('.', ',')}
       </p>
       <img
         src={ urlImage }
@@ -61,7 +56,6 @@ export default function ProductsComponents({ name, price, urlImage, id }) {
           } }
         >
           -
-
         </button>
         <input
           id={ `id-${id}` }
@@ -79,7 +73,6 @@ export default function ProductsComponents({ name, price, urlImage, id }) {
           } }
         >
           +
-
         </button>
       </div>
     </div>
