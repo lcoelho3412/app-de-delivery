@@ -1,4 +1,3 @@
-// import { useEffect, useState } from 'react';
 import propTypes from 'prop-types';
 import useData from '../hooks/useData';
 import GlobalContext from './GlobalContext';

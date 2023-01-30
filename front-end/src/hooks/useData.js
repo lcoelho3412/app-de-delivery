@@ -6,6 +6,15 @@ export default function useData() {
     email: '',
     password: '',
   });
+  const [cart, setCart] = useState([]);
+  const [total, setTotal] = useState(0);
 
-  return { user, setUser };
+  return {
+    user,
+    setUser,
+    cart,
+    setCart,
+    total,
+    setTotal,
+  };
 }
