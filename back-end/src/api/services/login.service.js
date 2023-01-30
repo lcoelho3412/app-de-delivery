@@ -9,7 +9,6 @@ const signIn = async (body) => {
   const hashedPassword = md5(password);
 
   const user = await User.findOne({
-    attributes: { exclude: ['password'] },
     where: { email },
   });
 
