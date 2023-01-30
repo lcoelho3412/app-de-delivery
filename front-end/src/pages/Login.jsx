@@ -26,11 +26,16 @@ export default function Login() {
     try {
       const data = await requestPost('/login', { email, password });
 
-      history.push('/customer/products');
+      if (data.role === 'administrator') {
+        history.push('/admin/manage');
 
-      localStorage.setItem('user', JSON.stringify(data));
+        localStorage.setItem('user', JSON.stringify(data));
+      } else {
+        history.push('/customer/products');
+
+        localStorage.setItem('user', JSON.stringify(data));
+      }
     } catch (e) {
-      console.log(e);
       setError(e.response.data.message);
       setFailedTryLogin(true);
     }

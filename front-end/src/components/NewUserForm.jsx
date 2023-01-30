@@ -1,9 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
 import { requestPost } from '../services/requests';
 
-export default function Registro() {
-  const history = useHistory();
+export default function NewUserForm() {
   const [error, setError] = useState('');
   const [disable, setDisable] = useState(true);
   const [failedTryLogin, setFailedTryLogin] = useState(false);
@@ -11,17 +9,18 @@ export default function Registro() {
     name: '',
     email: '',
     password: '',
+    role: '',
   });
 
   const validation = useCallback(() => {
     const email = /\S+@\S+\.\S+/.test(newUser.email);
-    const doze = 12;
-    const seis = 6;
+    const twelve = 12;
+    const six = 6;
 
     if (
       email
-      && newUser.password.length >= seis
-      && newUser.name.length >= doze
+      && newUser.password.length >= six
+      && newUser.name.length >= twelve
     ) {
       setDisable(false);
     } else {
@@ -39,17 +38,10 @@ export default function Registro() {
   const register = async (event) => {
     event.preventDefault();
 
-    const { name, email, password } = newUser;
+    const { name, email, password, role } = newUser;
 
     try {
-      await requestPost('/register', {
-        name,
-        email,
-        password,
-        role: 'customer',
-      });
-
-      history.push('/customer/products');
+      await requestPost('/register', { name, email, password, role });
     } catch (e) {
       setError(e.response.data.message);
       setFailedTryLogin(true);
@@ -63,14 +55,14 @@ export default function Registro() {
   return (
     <>
       <form>
-        <h2>Cadastro</h2>
+        <h2>Cadastrar novo usuário</h2>
 
-        <label htmlFor="e-mail">
+        <label htmlFor="name">
           <br />
           Nome
           <input
             type="text"
-            data-testid="common_register__input-name"
+            data-testid="admin_manage__input-name"
             name="name"
             onChange={ changeState }
           />
@@ -81,7 +73,7 @@ export default function Registro() {
           Email
           <input
             type="email"
-            data-testid="common_register__input-email"
+            data-testid="admin_manage__input-email"
             name="email"
             onChange={ changeState }
           />
@@ -92,16 +84,33 @@ export default function Registro() {
           Password
           <input
             type="password"
-            data-testid="common_register__input-password"
+            data-testid="admin_manage__input-password"
             name="password"
             onChange={ changeState }
           />
         </label>
 
         <br />
+        <label htmlFor="role">
+          Tipo
+          <select
+            name="role"
+            data-testid="admin_manage__select-role"
+            defaultValue="empty"
+            onChange={ changeState }
+          >
+            <option value="empty" disabled hidden>
+              {' '}
+            </option>
+            <option value="customer">Cliente</option>
+            <option value="administrator">Pessoa administra</option>
+            <option value="seller">Pessoa vendedora</option>
+          </select>
+        </label>
+
         <button
           type="submit"
-          data-testid="common_register__button-register"
+          data-testid="admin_manage__button-register"
           disabled={ disable }
           onClick={ (event) => register(event) }
         >
@@ -109,17 +118,7 @@ export default function Registro() {
         </button>
       </form>
 
-      <p>
-        Já tem uma conta ?
-        <Link to="/">Entre</Link>
-      </p>
-
-      <p
-        data-testid="common_register__element-invalid_register"
-        hidden={ !failedTryLogin }
-      >
-        {error}
-      </p>
+      <p hidden={ !failedTryLogin }>{error}</p>
     </>
   );
 }
