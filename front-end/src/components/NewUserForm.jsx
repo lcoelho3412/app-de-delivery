@@ -41,7 +41,7 @@ export default function NewUserForm() {
     const { name, email, password, role } = newUser;
 
     try {
-      await requestPost('/register', { name, email, password, role });
+      await requestPost('/admin/manage', { name, email, password, role });
     } catch (e) {
       setError(e.response.data.message);
       setFailedTryLogin(true);
