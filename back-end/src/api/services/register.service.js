@@ -21,9 +21,9 @@ const createUser = async (body) => {
 
   const newUser = await User.findOne({ where: { email } });
 
-  const { id, role: _, ...nUser } = newUser.dataValues;
+  const { id, role: _, ...userWithoutPassword } = newUser.dataValues;
 
-  return nUser;
+  return userWithoutPassword;
 };
 
 module.exports = { createUser };
