@@ -1,9 +1,16 @@
-import { useContext } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import GlobalContext from '../../../contexts/GlobalContext';
 import FinishOrderBtn from './FinishOrderBtn';
+import { requestGet } from '../../../services/requests';
 
 export default function CustomerDetails() {
   const { total } = useContext(GlobalContext);
+
+  const { token } = JSON.parse(localStorage.getItem('user'));
+
+  const [sellers, setSellers] = useState([]);
+
+  useEffect(() => requestGet('/sellers', token).then((data) => setSellers(data)), []);
 
   return (
     <>
@@ -12,7 +19,9 @@ export default function CustomerDetails() {
       </span>
       <form>
         <select data-testid="customer_checkout__select-seller">
-          <option value="Fulana Pereira">Fulana Pereira</option>
+          {sellers.map((element) => (
+            <option key={ element.id } value={ element.name }>{element.name}</option>
+          ))}
         </select>
         <input
           type="text"
@@ -24,6 +33,12 @@ export default function CustomerDetails() {
           placeholder="Número"
           data-testid="customer_checkout__input-address-number"
         />
+        <button
+          type="submit"
+          data-testid="customer_checkout__button-submit-order"
+        >
+          finalizar pedido
+        </button>
         <FinishOrderBtn />
       </form>
     </>

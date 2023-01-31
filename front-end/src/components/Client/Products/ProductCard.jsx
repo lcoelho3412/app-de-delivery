@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useEffect, useContext, useState } from 'react';
 import GlobalContext from '../../../contexts/GlobalContext';
 
-export default function ProductsList({ name, price, urlImage, id }) {
+export default function ProductCard({ name, price, urlImage, id }) {
   const [quantity, setQuantity] = useState(0);
   const { cart, setCart } = useContext(GlobalContext);
 
@@ -26,8 +26,6 @@ export default function ProductsList({ name, price, urlImage, id }) {
       setCart([...filteredCart, item]);
     }
   }, [quantity]);
-
-  // console.log('card');
 
   return (
     <div className="product-card">
@@ -76,7 +74,7 @@ export default function ProductsList({ name, price, urlImage, id }) {
   );
 }
 
-ProductsList.propTypes = {
+ProductCard.propTypes = {
   name: PropTypes.string.isRequired,
   price: PropTypes.string.isRequired,
   urlImage: PropTypes.string.isRequired,
