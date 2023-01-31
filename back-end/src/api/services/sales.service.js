@@ -1,10 +1,10 @@
 const { Sale, SalesProducts } = require('../../database/models');
 
-const create = async (body) => {
+const create = async (id, body) => {
   const { soldProducts } = body;
 
   const sale = await Sale.create({
-    userId: body.userId,
+    userId: id,
     sellerId: body.sellerId,
     totalPrice: body.totalPrice,
     deliveryAddress: body.deliveryAddress,

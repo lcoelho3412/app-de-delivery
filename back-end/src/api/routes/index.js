@@ -3,7 +3,7 @@ const register = require('./register.routes');
 const products = require('./products.routes');
 const sales = require('./sales.routes');
 const admin = require('./admin.routes');
-const sellers = require('./seller.routes');
+const sellers = require('./sellers.routes');
 
 module.exports = {
   login,

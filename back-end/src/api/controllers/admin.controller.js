@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const fs = require('fs');
-// const { decode } = require('jsonwebtoken');
+
 const service = require('../services');
 const httpException = require('../utils/http.exception');
 const { validateToken } = require('../utils/jwt.util');

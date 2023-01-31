@@ -1,9 +1,9 @@
 import React, { useCallback, useEffect, useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
-import GlobalContext from '../contexts/GlobalContext';
-import { requestPost } from '../services/requests';
+import { requestPost } from '../../services/requests';
+import GlobalContext from '../../contexts/GlobalContext';
 
-export default function Login() {
+export default function LoginForm() {
   const history = useHistory();
   const { user, setUser } = useContext(GlobalContext);
   const [failedTryLogin, setFailedTryLogin] = useState(false);
@@ -54,35 +54,35 @@ export default function Login() {
   if (history.location.pathname === '/') history.push('/login');
 
   return (
-    <>
+    <div className="login-form">
       <form>
         <label htmlFor="e-mail">
-          <br />
           Email
           <input
             type="email"
-            data-testid="common_login__input-email"
             name="email"
+            className="login-input"
             placeholder="Digite seu email"
+            data-testid="common_login__input-email"
             onChange={ changeState }
           />
         </label>
 
         <label htmlFor="password">
-          <br />
           Senha
           <input
             type="password"
-            data-testid="common_login__input-password"
             name="password"
+            className="login-input"
             placeholder="Digite sua senha"
+            data-testid="common_login__input-password"
             onChange={ changeState }
           />
         </label>
 
-        <br />
         <button
           type="button"
+          className="login-btn"
           data-testid="common_login__button-login"
           disabled={ disable }
           onClick={ login }
@@ -90,9 +90,9 @@ export default function Login() {
           Login
         </button>
 
-        <br />
         <button
           type="button"
+          className="login-register-btn"
           data-testid="common_login__button-register"
           onClick={ () => history.push('/register') }
         >
@@ -105,6 +105,6 @@ export default function Login() {
       >
         {error}
       </p>
-    </>
+    </div>
   );
 }

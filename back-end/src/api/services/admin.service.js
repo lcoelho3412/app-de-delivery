@@ -1,6 +1,5 @@
 const md5 = require('md5');
 const sequelize = require('sequelize');
-
 const { User } = require('../../database/models');
 const httpException = require('../utils/http.exception');
 

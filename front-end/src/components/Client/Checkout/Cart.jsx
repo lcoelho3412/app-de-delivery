@@ -1,18 +1,13 @@
-import { useState, useEffect, useContext } from 'react';
+import { useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
-import NavBar from '../components/NavBar';
-import GlobalContext from '../contexts/GlobalContext';
-import { requestGet } from '../services/requests';
+import GlobalContext from '../../../contexts/GlobalContext';
 
 export default function Checkout() {
-  const { cart, total, setCart, setTotal } = useContext(GlobalContext);
-  const [sellers, setSellers] = useState([]);
+  const { cart, setCart, setTotal } = useContext(GlobalContext);
 
   const history = useHistory();
 
   const { token } = JSON.parse(localStorage.getItem('user'));
-
-  useEffect(() => requestGet('/sellers', token).then((data) => setSellers(data)), []);
 
   if (!token) history.push('/login');
 
@@ -22,8 +17,6 @@ export default function Checkout() {
     setCart(filteredCart);
   };
 
-  console.log(sellers);
-
   useEffect(() => {
     const newTotal = cart.reduce((acc, curr) => curr.subTotal + acc, 0);
 
@@ -32,7 +25,6 @@ export default function Checkout() {
 
   return (
     <>
-      <NavBar />
       {cart.map(({ productId, name, quantity, unitPrice, subTotal }, index) => (
         <div key={ productId }>
           <span
@@ -70,32 +62,6 @@ export default function Checkout() {
           </button>
         </div>
       ))}
-      <span data-testid="customer_checkout__element-order-total-price">
-        {total.toFixed(2).replace('.', ',')}
-      </span>
-      <form>
-        <select data-testid="customer_checkout__select-seller">
-          {sellers.map((element) => (
-            <option key={ element.id } value={ element.name }>{element.name}</option>
-          ))}
-        </select>
-        <input
-          type="text"
-          placeholder="Endereço"
-          data-testid="customer_checkout__input-address"
-        />
-        <input
-          type="number"
-          placeholder="Número"
-          data-testid="customer_checkout__input-address-number"
-        />
-        <button
-          type="submit"
-          data-testid="customer_checkout__button-submit-order"
-        >
-          finalizar pedido
-        </button>
-      </form>
     </>
   );
 }
