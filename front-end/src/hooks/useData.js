@@ -17,7 +17,7 @@ export default function useData() {
     deliveryNumber: 0,
     soldProducts: [],
   });
-  // const [sellerId, setSellerId] = useState(0);
+  const [sellerOrder, setSellerOrder] = useState([]);
 
   return {
     user,
@@ -28,9 +28,14 @@ export default function useData() {
     setTotal,
     order,
     setOrder,
+<<<<<<< HEAD
     sale,
     setSale,
     // sellerId,
     // setSellerId,
+=======
+    sellerOrder,
+    setSellerOrder,
+>>>>>>> 8fa2ca546e75f139b91df5df14d40e1736243485
   };
 }

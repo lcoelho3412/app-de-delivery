@@ -4,6 +4,7 @@ const products = require('./products.routes');
 const sales = require('./sales.routes');
 const admin = require('./admin.routes');
 const sellers = require('./sellers.routes');
+const seller = require('./seller.routes');
 
 module.exports = {
   login,
@@ -12,4 +13,5 @@ module.exports = {
   sales,
   admin,
   sellers,
+  seller,
 };

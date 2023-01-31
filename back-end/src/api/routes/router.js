@@ -15,4 +15,6 @@ router.use('/admin', routes.admin);
 
 router.use('/sellers', routes.sellers);
 
+router.use('/seller', routes.seller);
+
 module.exports = router;

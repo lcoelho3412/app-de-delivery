@@ -33,6 +33,10 @@ export default function LoginForm() {
         history.push('/admin/manage');
 
         localStorage.setItem('user', JSON.stringify(userData));
+      } else if (data.role === 'seller') {
+        localStorage.setItem('user', JSON.stringify(userData));
+
+        history.push('/seller/orders');
       } else {
         history.push('/customer/products');
 
