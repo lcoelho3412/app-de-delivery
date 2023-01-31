@@ -1,9 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import PropTypes from 'prop-types';
 import { useEffect, useContext, useState } from 'react';
-import GlobalContext from '../../contexts/GlobalContext';
+import GlobalContext from '../../../contexts/GlobalContext';
 
-export default function ProductsComponents({ name, price, urlImage, id }) {
+export default function ProductsList({ name, price, urlImage, id }) {
   const [quantity, setQuantity] = useState(0);
   const { cart, setCart } = useContext(GlobalContext);
 
@@ -80,7 +80,7 @@ export default function ProductsComponents({ name, price, urlImage, id }) {
   );
 }
 
-ProductsComponents.propTypes = {
+ProductsList.propTypes = {
   name: PropTypes.string.isRequired,
   price: PropTypes.string.isRequired,
   urlImage: PropTypes.string.isRequired,

@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { requestProducts } from '../../services/requests';
-import { ProductsComponent, CartButton, NavBar } from '../../components';
+import { ProductsList, CartButton, NavBar } from '../../components';
 
 export default function Products() {
   const [products, setProducts] = useState([]);
@@ -23,10 +23,10 @@ export default function Products() {
   useEffect(fetchProducts, []);
 
   return (
-    <div>
+    <>
       <NavBar />
       {products.map(({ id, name, price, urlImage }) => (
-        <ProductsComponent
+        <ProductsList
           key={ id }
           name={ name }
           price={ Number(price).toFixed(2) }
@@ -35,6 +35,6 @@ export default function Products() {
         />
       ))}
       <CartButton />
-    </div>
+    </>
   );
 }
