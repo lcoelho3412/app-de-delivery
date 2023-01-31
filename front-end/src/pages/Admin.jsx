@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import NavBar from '../components/NavBar';
-import NewUserForm from '../components/NewUserForm';
+import AdminForm from '../components/AdminForm';
 import { requestGet } from '../services/requests';
 import TableUsers from '../components/TableUsers';
 
@@ -24,7 +24,7 @@ export default function Admin() {
   return (
     <>
       <NavBar />
-      <NewUserForm />
+      <AdminForm />
       {users.map(({ name, email, role, id }, index) => (
         <TableUsers
           key={ index }
