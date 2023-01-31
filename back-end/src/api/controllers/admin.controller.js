@@ -1,10 +1,12 @@
-const { decode } = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 
 const service = require('../services');
 const { validateToken } = require('../utils/jwt.util');
 const { registerSchema } = require('../services/validations/schema');
 const httpException = require('../utils/http.exception');
 const validateSchema = require('../services/validations/validationSchema');
+
+const { decode } = jwt;
 
 const createUser = async (req, res) => {
   const token = req.headers.authorization;
