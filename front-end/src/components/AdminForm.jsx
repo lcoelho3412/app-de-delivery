@@ -49,6 +49,14 @@ export default function NewUserForm() {
         { name, email, password, role },
         token,
       );
+
+      setFailedTryLogin(true);
+      setError('Conta criada com sucesso');
+
+      const tres = 3000;
+      setTimeout(() => {
+        setError('');
+      }, tres);
     } catch (e) {
       setError(e.response.data.message);
       setFailedTryLogin(true);
@@ -125,7 +133,12 @@ export default function NewUserForm() {
         </button>
       </form>
 
-      <p hidden={ !failedTryLogin }>{error}</p>
+      <p
+        data-testid="admin_manage__element-invalid-register"
+        hidden={ !failedTryLogin }
+      >
+        {error}
+      </p>
     </>
   );
 }
