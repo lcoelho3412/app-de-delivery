@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
-import { requestPost } from '../../services/requests';
+import { requestLogin } from '../../services/requests';
 import GlobalContext from '../../contexts/GlobalContext';
 
 export default function LoginForm() {
@@ -23,20 +23,24 @@ export default function LoginForm() {
     const { email, password } = user;
 
     try {
-      const data = await requestPost('/login', { email, password });
+      const data = await requestLogin('/login', { email, password });
+
+      const { id, ...userData } = data;
+
+      setUser(data);
 
       if (data.role === 'administrator') {
         history.push('/admin/manage');
 
-        localStorage.setItem('user', JSON.stringify(data));
+        localStorage.setItem('user', JSON.stringify(userData));
       } else if (data.role === 'seller') {
-        localStorage.setItem('user', JSON.stringify(data));
+        localStorage.setItem('user', JSON.stringify(userData));
 
         history.push('/seller/orders');
       } else {
         history.push('/customer/products');
 
-        localStorage.setItem('user', JSON.stringify(data));
+        localStorage.setItem('user', JSON.stringify(userData));
       }
     } catch (e) {
       setError(e.response.data.message);
