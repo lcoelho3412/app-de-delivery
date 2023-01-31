@@ -6,6 +6,7 @@ import CustomerOrders from './Client/CustomerOrders';
 import OrderDetails from './Client/OrderDetails';
 import Checkout from './Client/Checkout';
 import Admin from './Admin/Admin';
+import SellerOrders from './Seller/SellerOrders';
 
 export { NotFound, Login, Register, Products,
-  Checkout, Admin, CustomerOrders, OrderDetails };
+  Checkout, Admin, CustomerOrders, OrderDetails, SellerOrders };
