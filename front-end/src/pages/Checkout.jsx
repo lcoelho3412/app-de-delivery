@@ -1,14 +1,18 @@
-import { useEffect, useContext } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import NavBar from '../components/NavBar';
 import GlobalContext from '../contexts/GlobalContext';
+import { requestGet } from '../services/requests';
 
 export default function Checkout() {
   const { cart, total, setCart, setTotal } = useContext(GlobalContext);
+  const [sellers, setSellers] = useState([]);
 
   const history = useHistory();
 
   const { token } = JSON.parse(localStorage.getItem('user'));
+
+  useEffect(() => requestGet('/sellers', token).then((data) => setSellers(data)), []);
 
   if (!token) history.push('/login');
 
@@ -17,6 +21,8 @@ export default function Checkout() {
 
     setCart(filteredCart);
   };
+
+  console.log(sellers);
 
   useEffect(() => {
     const newTotal = cart.reduce((acc, curr) => curr.subTotal + acc, 0);
@@ -69,7 +75,9 @@ export default function Checkout() {
       </span>
       <form>
         <select data-testid="customer_checkout__select-seller">
-          <option value="Fulana Pereira">Fulana Pereira</option>
+          {sellers.map((element) => (
+            <option key={ element.id } value={ element.name }>{element.name}</option>
+          ))}
         </select>
         <input
           type="text"
