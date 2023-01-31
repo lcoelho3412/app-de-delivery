@@ -1,10 +1,10 @@
-import { NavBar, OrdersList } from '../../components';
+import { NavBar, OrderCards } from '../../components';
 
 export default function Checkout() {
   return (
     <>
       <NavBar />
-      <OrdersList />
+      <OrderCards />
     </>
   );
 }

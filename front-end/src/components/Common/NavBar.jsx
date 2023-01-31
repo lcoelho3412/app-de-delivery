@@ -12,34 +12,42 @@ export default function NavBar() {
   }, []);
 
   return (
-    <nav>
-      <div>
+    <nav className="nav-bar">
+      <section className="nav-bar-pages">
         <a
-          data-testid="customer_products__element-navbar-link-products"
           href="/customer/products"
+          className="nav-bar-products"
+          data-testid="customer_products__element-navbar-link-products"
         >
           Produtos
         </a>
         <a
-          data-testid="customer_products__element-navbar-link-orders"
           href="/customer/orders"
+          className="nav-bar-orders"
+          data-testid="customer_products__element-navbar-link-orders"
         >
           Meus Pedidos
         </a>
-        <span data-testid="customer_products__element-navbar-user-full-name">
+      </section>
+      <section className="nav-bar-user-stuff">
+        <div
+          className="nav-bar-name"
+          data-testid="customer_products__element-navbar-user-full-name"
+        >
           {user.name}
-        </span>
-      </div>
-      <button
-        data-testid="customer_products__element-navbar-link-logout"
-        type="button"
-        onClick={ () => {
-          localStorage.clear();
-          history.push('/');
-        } }
-      >
-        Sair
-      </button>
+        </div>
+        <button
+          type="button"
+          className="logout-btn"
+          data-testid="customer_products__element-navbar-link-logout"
+          onClick={ () => {
+            localStorage.clear();
+            history.push('/');
+          } }
+        >
+          Sair
+        </button>
+      </section>
     </nav>
   );
 }

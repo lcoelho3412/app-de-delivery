@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { requestProducts } from '../../services/requests';
-import { ProductsList, CartButton, NavBar } from '../../components';
+import { ProductCard, CartButton, NavBar } from '../../components';
 
 export default function Products() {
   const [products, setProducts] = useState([]);
@@ -25,15 +25,17 @@ export default function Products() {
   return (
     <>
       <NavBar />
-      {products.map(({ id, name, price, urlImage }) => (
-        <ProductsList
-          key={ id }
-          name={ name }
-          price={ Number(price).toFixed(2) }
-          urlImage={ urlImage }
-          id={ id }
-        />
-      ))}
+      <div className="products-screen">
+        {products.map(({ id, name, price, urlImage }) => (
+          <ProductCard
+            key={ id }
+            name={ name }
+            price={ Number(price).toFixed(2) }
+            urlImage={ urlImage }
+            id={ id }
+          />
+        ))}
+      </div>
       <CartButton />
     </>
   );

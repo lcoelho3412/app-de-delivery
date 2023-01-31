@@ -16,11 +16,14 @@ export default function CartButton() {
   return (
     <button
       type="button"
+      className="cart-btn"
       data-testid="customer_products__button-cart"
       onClick={ () => history.push('/customer/checkout') }
       disabled={ total === 0 }
     >
-      Ver Carrinho
+      Ver Carrinho:
+      {' '}
+      R$
       {' '}
       <span data-testid="customer_products__checkout-bottom-value">
         {total.toFixed(2).replace('.', ',')}

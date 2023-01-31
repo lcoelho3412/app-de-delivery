@@ -30,52 +30,48 @@ export default function ProductsList({ name, price, urlImage, id }) {
   // console.log('card');
 
   return (
-    <div>
-      <span data-testid={ `customer_products__element-card-title-${id}` }>
-        Name:
-        {name}
-      </span>
-      <br />
+    <div className="product-card">
       <p data-testid={ `customer_products__element-card-price-${id}` }>
         {price.toString().replace('.', ',')}
       </p>
       <img
         src={ urlImage }
         alt={ name }
-        width="8%"
+        className="product-thumbnail"
         data-testid={ `customer_products__img-card-bg-image-${id}` }
       />
-      <div>
-        <button
-          type="button"
-          onClick={ () => {
-            if (quantity > 0) setQuantity(quantity - 1);
-          } }
-          data-testid={ `customer_products__button-card-rm-item-${id}` }
-          style={ {
-            width: '5vw',
-          } }
-        >
-          -
-        </button>
-        <input
-          id={ `id-${id}` }
-          type="number"
-          value={ quantity }
-          onChange={ ({ target }) => setQuantity(Number(target.value)) }
-          data-testid={ `customer_products__input-card-quantity-${id}` }
-        />
-        <button
-          type="button"
-          onClick={ () => setQuantity(quantity + 1) }
-          data-testid={ `customer_products__button-card-add-item-${id}` }
-          style={ {
-            width: '5vw',
-          } }
-        >
-          +
-        </button>
-      </div>
+      <section className="product-card-details">
+        <span data-testid={ `customer_products__element-card-title-${id}` }>
+          {name}
+        </span>
+        <br />
+        <section className="product-quantity">
+          <button
+            type="button"
+            className="product-quantity-minus"
+            onClick={ () => { if (quantity > 0) setQuantity(quantity - 1); } }
+            data-testid={ `customer_products__button-card-rm-item-${id}` }
+          >
+            -
+          </button>
+          <input
+            id={ `id-${id}` }
+            type="number"
+            value={ quantity }
+            className="product-quantity-number"
+            onChange={ ({ target }) => setQuantity(Number(target.value)) }
+            data-testid={ `customer_products__input-card-quantity-${id}` }
+          />
+          <button
+            type="button"
+            className="product-quantity-plus"
+            onClick={ () => setQuantity(quantity + 1) }
+            data-testid={ `customer_products__button-card-add-item-${id}` }
+          >
+            +
+          </button>
+        </section>
+      </section>
     </div>
   );
 }
