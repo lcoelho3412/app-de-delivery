@@ -1,11 +1,11 @@
 import React, { useCallback, useEffect, useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
-import { requestGetSellerOrders, requestPost } from '../../services/requests';
+import { requestPost } from '../../services/requests';
 import GlobalContext from '../../contexts/GlobalContext';
 
 export default function LoginForm() {
   const history = useHistory();
-  const { user, setUser, setSellerOrder } = useContext(GlobalContext);
+  const { user, setUser } = useContext(GlobalContext);
   const [failedTryLogin, setFailedTryLogin] = useState(false);
   const [disable, setDisable] = useState(true);
   const [error, setError] = useState('');
@@ -33,7 +33,6 @@ export default function LoginForm() {
         localStorage.setItem('user', JSON.stringify(data));
 
         history.push('/seller/orders');
-        setSellerOrder(await requestGetSellerOrders('/seller/orders', email));
       } else {
         history.push('/customer/products');
 
