@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { requestPostAdmin } from '../services/requests';
 
-export default function NewUserForm() {
+export default function AdminForm() {
   const [error, setError] = useState('');
   const [disable, setDisable] = useState(true);
   const [failedTryLogin, setFailedTryLogin] = useState(false);
