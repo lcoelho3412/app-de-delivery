@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { requestPost } from '../../services/requests';
+import { requestPostAdmin } from '../../services/requests';
 
-export default function NewUserForm() {
+export default function AdminForm() {
   const [error, setError] = useState('');
   const [disable, setDisable] = useState(true);
   const [failedTryLogin, setFailedTryLogin] = useState(false);
@@ -21,6 +21,7 @@ export default function NewUserForm() {
       email
       && newUser.password.length >= six
       && newUser.name.length >= twelve
+      && newUser.role.length > 2
     ) {
       setDisable(false);
     } else {
@@ -41,7 +42,21 @@ export default function NewUserForm() {
     const { name, email, password, role } = newUser;
 
     try {
-      await requestPost('/admin/manage', { name, email, password, role });
+      const { token } = JSON.parse(localStorage.getItem('user'));
+
+      await requestPostAdmin(
+        '/admin/manage',
+        { name, email, password, role },
+        token,
+      );
+
+      setFailedTryLogin(true);
+      setError('Conta criada com sucesso');
+
+      const tres = 3000;
+      setTimeout(() => {
+        setError('');
+      }, tres);
     } catch (e) {
       setError(e.response.data.message);
       setFailedTryLogin(true);
@@ -118,7 +133,12 @@ export default function NewUserForm() {
         </button>
       </form>
 
-      <p hidden={ !failedTryLogin }>{error}</p>
+      <p
+        data-testid="admin_manage__element-invalid-register"
+        hidden={ !failedTryLogin }
+      >
+        {error}
+      </p>
     </>
   );
 }
