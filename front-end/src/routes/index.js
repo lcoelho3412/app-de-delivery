@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { Login, NotFound, Register, Products, Checkout,
-  Admin, CustomerOrders, OrderDetails } from '../pages';
+  Admin, CustomerOrders, OrderDetails, SellerOrders } from '../pages';
 
 export default function Routes() {
   return (

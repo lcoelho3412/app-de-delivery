@@ -1,10 +1,10 @@
-import { NavBar, OrderCards } from '../../components';
+import { NavBar, SellerOrderCards } from '../../components';
 
 export default function SellerOrders() {
   return (
     <>
       <NavBar />
-      <OrderCards />
+      <SellerOrderCards />
     </>
   );
 }
