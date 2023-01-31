@@ -28,14 +28,9 @@ export default function useData() {
     setTotal,
     order,
     setOrder,
-<<<<<<< HEAD
     sale,
     setSale,
-    // sellerId,
-    // setSellerId,
-=======
     sellerOrder,
     setSellerOrder,
->>>>>>> 8fa2ca546e75f139b91df5df14d40e1736243485
   };
 }
