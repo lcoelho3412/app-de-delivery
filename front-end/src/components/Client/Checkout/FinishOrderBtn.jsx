@@ -15,6 +15,8 @@ export default function FinishOrderBtn({ address, addressNumber }) {
     user,
   } = useContext(GlobalContext);
 
+  const { token } = JSON.parse(localStorage.getItem('user'));
+
   const generateOrderNumber = () => {
     let counter = 1;
     const fourDigit = 4;
@@ -57,7 +59,7 @@ export default function FinishOrderBtn({ address, addressNumber }) {
       soldProducts: formatedCart,
     };
 
-    const data = await requestPost('/sales', newSale);
+    const data = await requestPost('/sales', newSale, token);
 
     setOrder([...order, newOrder]);
 

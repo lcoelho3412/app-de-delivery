@@ -1,7 +1,7 @@
-const { Sale } = require('../../database/models');
+const { Sale, SalesProducts } = require('../../database/models');
 
 const create = async (body) => {
-  // const { soldProducts } = body;
+  const { soldProducts } = body;
 
   const sale = await Sale.create({
     userId: body.userId,
@@ -13,22 +13,17 @@ const create = async (body) => {
     status: 'Pendente',
   });
 
-  // console.log(soldProducts);
+  const soldArray = soldProducts.map(async (product) => {
+    const salesProducts = await SalesProducts.create({
+      saleId: sale.id,
+      productId: product.productId,
+      quantity: product.quantity,
+    });
 
-  // const soldArray = soldProducts.map(async (product) => {
-  //   const salesProducts = await SalesProducts.create({
-  //     saleId: sale.id,
-  //     productId: product.productId,
-  //     quantity: product.quantity,
-  //   });
+    return salesProducts;
+  });
 
-  //   return salesProducts;
-  // });
-
-  // console.log(soldArray);
-
-  // const validation = await Promise.all(soldArray);
-  // console.log(validation);
+  await Promise.all(soldArray);
 
   return sale;
 };
