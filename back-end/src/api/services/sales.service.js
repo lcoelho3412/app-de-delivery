@@ -13,15 +13,11 @@ const create = async (body) => {
     status: 'Pendente',
   });
 
-  const soldArray = soldProducts.map(async (product) => {
-    const salesProducts = await SalesProducts.create({
+  const soldArray = soldProducts.map(async (product) => SalesProducts.create({
       saleId: sale.id,
       productId: product.productId,
       quantity: product.quantity,
-    });
-
-    return salesProducts;
-  });
+    }));
 
   await Promise.all(soldArray);
 
