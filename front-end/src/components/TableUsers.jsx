@@ -25,7 +25,7 @@ export default function TableUsers({ name, email, role, id, index }) {
             {index}
           </td>
 
-          <td data-testid="admin_manage__input-email">{name}</td>
+          <td data-testid={ `admin_manage__element-user-table-name-${id}` }>{name}</td>
 
           <td data-testid={ `admin_manage__element-user-table-email-${id}` }>
             {email}
