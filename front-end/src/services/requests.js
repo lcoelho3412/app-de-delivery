@@ -51,4 +51,10 @@ export const requestProducts = async (token) => {
   }
 };
 
+export const requestGetSellerOrders = async (endpoint, body) => {
+  const { data } = await api.get(endpoint, body);
+
+  return data;
+};
+
 export default api;
