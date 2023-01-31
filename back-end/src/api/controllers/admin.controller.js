@@ -21,7 +21,7 @@ const createUser = async (req, res) => {
 
   await validateSchema(registerSchema, body);
 
-  const newUser = await service.admin.createUser(req.body, payload.data.role);
+  const newUser = await service.admin.createUser(body, payload.data.role);
 
   return res.status(201).json(newUser);
 };
