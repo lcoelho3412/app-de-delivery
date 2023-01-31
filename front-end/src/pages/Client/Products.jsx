@@ -18,8 +18,6 @@ export default function Products() {
     setProducts(data);
   };
 
-  // console.log('teste');
-
   useEffect(fetchProducts, []);
 
   return (

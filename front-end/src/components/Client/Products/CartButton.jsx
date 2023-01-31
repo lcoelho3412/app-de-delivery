@@ -11,7 +11,7 @@ export default function CartButton() {
     localStorage.setItem('cart', JSON.stringify(cart));
     const newTotal = cart.reduce((acc, curr) => curr.subTotal + acc, 0);
     setTotal(newTotal);
-  }, [cart]);
+  }, [cart, setTotal]);
 
   return (
     <button

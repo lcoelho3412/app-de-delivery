@@ -1,13 +1,9 @@
 const md5 = require('md5');
-const sequelize = require('sequelize');
 const { User } = require('../../database/models');
 const httpException = require('../utils/http.exception');
 
-const notAdmin = 'Você não é admin';
-
-const createUser = async (body, role) => {
-  if (role !== 'administrator') throw httpException(409, notAdmin);
-  const { email, password } = body;
+const createUser = async (body) => {
+  const { email, password, role } = body;
   const hashedPassword = md5(password);
 
   const user = await User.findOne({
@@ -19,22 +15,19 @@ const createUser = async (body, role) => {
   await User.create({
     ...body,
     password: hashedPassword,
+    role,
   });
 
-  const newUser = await User.findOne({ where: { email } });
+  const newUser = await User.findOne({
+    attributes: { exclude: ['password'] },
+    where: { email },
+  });
 
-  const { id, ...nUser } = newUser.dataValues;
-
-  return nUser;
+  return newUser;
 };
 
 const findAll = async () => {
   const users = await User.findAll({
-    where: {
-      role: {
-        [sequelize.Op.not]: 'administrator',
-      },
-    },
     attributes: { exclude: ['password'] },
   });
 
@@ -60,4 +53,4 @@ const remove = async (id) => {
   });
 };
 
-module.exports = { findAll, findById, remove, createUser };
+module.exports = { createUser, findAll, findById, remove };
