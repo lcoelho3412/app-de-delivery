@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { requestDelete } from '../services/requests';
+import { requestDelete } from '../../services/requests';
 
 export default function TableUsers({ name, email, role, id, index }) {
   const deleteUser = async (user) => {

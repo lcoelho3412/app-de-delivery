@@ -8,6 +8,7 @@ export default function useData() {
   });
   const [cart, setCart] = useState([]);
   const [total, setTotal] = useState(0);
+  const [order, setOrder] = useState([]);
 
   return {
     user,
@@ -16,5 +17,7 @@ export default function useData() {
     setCart,
     total,
     setTotal,
+    order,
+    setOrder,
   };
 }

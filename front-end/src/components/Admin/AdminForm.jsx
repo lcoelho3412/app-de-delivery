@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { requestPostAdmin } from '../services/requests';
+import { requestPostAdmin } from '../../services/requests';
 
 export default function AdminForm() {
   const [error, setError] = useState('');

@@ -1,9 +1,11 @@
 const { decode } = require('jsonwebtoken');
+
 const service = require('../services');
 const { validateToken } = require('../utils/jwt.util');
-const validateSchema = require('../services/validations/validationSchema');
 const { registerSchema } = require('../services/validations/schema');
 const httpException = require('../utils/http.exception');
+
+const validateSchema = require('../services/validations/validationSchema');
 
 const createUser = async (req, res) => {
   const { body } = req;

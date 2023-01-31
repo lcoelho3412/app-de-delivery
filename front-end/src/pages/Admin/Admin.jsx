@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import NavBar from '../components/NavBar';
-import AdminForm from '../components/AdminForm';
-import { requestGet } from '../services/requests';
-import TableUsers from '../components/TableUsers';
+import { requestGet } from '../../services/requests';
+import { AdminForm, TableUsers, NavBar } from '../../components';
 
 export default function Admin() {
   const [users, setUsers] = useState([]);
