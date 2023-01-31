@@ -9,7 +9,8 @@ import LoginForm from './Common/LoginForm';
 import TableUsers from './Admin/TableUsers';
 import NavBar from './Common/NavBar';
 import SellerOrderCards from './SellerOrder/SellerOrderCard';
+import NavBarSeller from './SellerOrder/NavBarSeller';
 
 export { Cart, CustomerDetails, ProductCard, OrderCards,
   CartButton, AdminForm, LoginForm, TableUsers, NavBar,
-  DetailsComponent, SellerOrderCards };
+  DetailsComponent, SellerOrderCards, NavBarSeller };

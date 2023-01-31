@@ -1,9 +1,9 @@
-import { NavBar, SellerOrderCards } from '../../components';
+import { NavBarSeller, SellerOrderCards } from '../../components';
 
 export default function SellerOrders() {
   return (
     <>
-      <NavBar />
+      <NavBarSeller />
       <SellerOrderCards />
     </>
   );
