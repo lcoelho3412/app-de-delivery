@@ -19,9 +19,7 @@ export default function Products() {
     setProducts(data);
   };
 
-  console.log('teste');
-
-  useEffect(fetchProducts, []);
+  useEffect(fetchProducts, [fetchProducts]);
 
   return (
     <div>

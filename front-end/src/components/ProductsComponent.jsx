@@ -24,9 +24,7 @@ export default function ProductsComponents({ name, price, urlImage, id }) {
     } else {
       setCart([...filteredCart, item]);
     }
-  }, [quantity]);
-
-  console.log('card');
+  }, [quantity, cart, id, name, price, setCart]);
 
   return (
     <div>
