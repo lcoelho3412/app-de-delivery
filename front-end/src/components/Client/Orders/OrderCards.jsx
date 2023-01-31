@@ -5,8 +5,6 @@ import GlobalContext from '../../../contexts/GlobalContext';
 export default function OrderCards() {
   const { order } = useContext(GlobalContext);
 
-  console.log(order);
-
   return (
     <Link to="/customer/orders/:id">
       {order.map(({ number, status, date, total }, index) => (
