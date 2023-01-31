@@ -1,5 +1,4 @@
-import NavBar from '../../components/Common/NavBar';
-import OrdersList from '../../components/Client/OrdersList';
+import { NavBar, OrdersList } from '../../components';
 
 export default function Checkout() {
   return (

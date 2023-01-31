@@ -2,9 +2,7 @@
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { requestProducts } from '../../services/requests';
-import ProductsComponents from '../../components/Client/ProductsComponent';
-import CartButton from '../../components/Client/CartButton';
-import NavBar from '../../components/Common/NavBar';
+import { ProductsComponent, CartButton, NavBar } from '../../components';
 
 export default function Products() {
   const [products, setProducts] = useState([]);
@@ -20,7 +18,7 @@ export default function Products() {
     setProducts(data);
   };
 
-  console.log('teste');
+  // console.log('teste');
 
   useEffect(fetchProducts, []);
 
@@ -28,7 +26,7 @@ export default function Products() {
     <div>
       <NavBar />
       {products.map(({ id, name, price, urlImage }) => (
-        <ProductsComponents
+        <ProductsComponent
           key={ id }
           name={ name }
           price={ Number(price).toFixed(2) }
