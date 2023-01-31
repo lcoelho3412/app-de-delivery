@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { requestPost } from '../services/requests';
+import { requestPost } from '../../services/requests';
 
 export default function Registro() {
   const history = useHistory();

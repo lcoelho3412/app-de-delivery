@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import ListUsers from '../components/ListUsers';
-import NavBar from '../components/NavBar';
-import NewUserForm from '../components/NewUserForm';
-import { requestGet } from '../services/requests';
+import { requestGet } from '../../services/requests';
+import { NewUserForm, ListUsers, NavBar } from '../../components';
 
 export default function Admin() {
   const [users, setUsers] = useState([]);

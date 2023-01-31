@@ -1,13 +1,11 @@
 import { useContext } from 'react';
-import NavBar from '../components/NavBar';
-import GlobalContext from '../contexts/GlobalContext';
+import GlobalContext from '../../../contexts/GlobalContext';
 
-export default function Checkout() {
-  const { cart, total } = useContext(GlobalContext);
+export default function Cart() {
+  const { cart } = useContext(GlobalContext);
 
   return (
     <>
-      <NavBar />
       {cart.map(({ productId, name, quantity, unitPrice, subTotal }, index) => (
         <div key={ productId }>
           <span
@@ -43,30 +41,6 @@ export default function Checkout() {
           </button>
         </div>
       ))}
-      <span data-testid="customer_checkout__element-order-total-price">
-        {total.toFixed(2).replace('.', ',')}
-      </span>
-      <form>
-        <select data-testid="customer_checkout__select-seller">
-          <option value="Fulana Pereira">Fulana Pereira</option>
-        </select>
-        <input
-          type="text"
-          placeholder="Endereço"
-          data-testid="customer_checkout__input-address"
-        />
-        <input
-          type="number"
-          placeholder="Número"
-          data-testid="customer_checkout__input-address-number"
-        />
-        <button
-          type="submit"
-          data-testid="customer_checkout__button-submit-order"
-        >
-          finalizar pedido
-        </button>
-      </form>
     </>
   );
 }
