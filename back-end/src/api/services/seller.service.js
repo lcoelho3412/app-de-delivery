@@ -23,7 +23,31 @@ const getOrdersBySeller = async (email) => {
 
   return sales;
 };
+const ordersBySellerById = async (email, id) => {
+  const seller = await User.findOne({
+    where: {
+      email,
+      role: 'seller',
+    },
+  });
+
+  const sellerId = Number(seller.dataValues.id);
+
+  const sales = await Sale.findAll({
+    where: {
+      id,
+      sellerId,
+    },
+  });
+
+  // if (sales.length === 0) {
+  //   throw httpException(404, 'Não há pedidos');
+  // }
+
+  return sales;
+};
 
 module.exports = {
   getOrdersBySeller,
+  ordersBySellerById,
 };
