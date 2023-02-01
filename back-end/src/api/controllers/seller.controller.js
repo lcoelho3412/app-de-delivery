@@ -1,5 +1,6 @@
 const { decode } = require('jsonwebtoken');
 const service = require('../services');
+const { validateToken } = require('../utils/jwt.util');
 
 const getOrdersBySeller = async (req, res) => {
   const { authorization } = req.headers;
@@ -13,20 +14,18 @@ const getOrdersBySeller = async (req, res) => {
   return res.status(200).json(ordersBySeller);
 };
 
-const ordersBySellerById = async (req, res) => {
+const ordersBySaleId = async (req, res) => {
   const { authorization } = req.headers;
-  const id = Number(req.params.id);
+  const saleId = Number(req.params.id);
 
-  const {
-    data: { email },
-  } = decode(authorization);
+  await validateToken(authorization);
 
-  const ordersById = await service.seller.ordersBySellerById(email, id);
+  const ordersById = await service.seller.ordersBySaleId(saleId);
 
   return res.status(200).json(ordersById);
 };
 
 module.exports = {
   getOrdersBySeller,
-  ordersBySellerById,
+  ordersBySaleId,
 };
