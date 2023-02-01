@@ -7,4 +7,6 @@ router.get('/orders', controller.seller.getOrdersBySeller);
 
 router.get('/orders/:id', controller.seller.ordersBySaleId);
 
+router.patch('/orders/:id', controller.seller.updateStatus);
+
 module.exports = router;

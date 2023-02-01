@@ -17,4 +17,6 @@ router.use('/sellers', routes.sellers);
 
 router.use('/seller', routes.seller);
 
+router.use('/customer', routes.customer);
+
 module.exports = router;
