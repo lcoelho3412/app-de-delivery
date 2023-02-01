@@ -30,7 +30,6 @@ export default function SellerOrderCards() {
     <>
       <p>Pedidos</p>
       {console.log(error)}
-      {console.log(sellerOrder[0])}
       {sellerOrder.length === 0 && <p>Não há pedidos</p>}
 
       {sellerOrder.map(
