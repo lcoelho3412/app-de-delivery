@@ -13,10 +13,8 @@ const createToken = (data) => {
 
   const decoded = jwt.decode(token);
 
-  const { id, ...response } = decoded.data;
-
   return {
-    ...response,
+    ...decoded.data,
     token,
   };
 };
