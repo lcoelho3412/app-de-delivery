@@ -22,18 +22,28 @@ export default function SellerOrderCards() {
     }
   }, [history, setSellerOrder]);
 
-  useEffect(() => fetch(), [fetch]);
+  useEffect(() => {
+    fetch();
+  }, [fetch]);
 
   return (
     <>
       <p>Pedidos</p>
-
-      {sellerOrder.length === 0 && <p>Não há pedidos</p>}
       {console.log(error)}
-      <Link to="/seller/orders/:id">
-        {sellerOrder.map(
-          ({ id, status, saleDate, totalPrice, deliveryAddress }) => (
-            <div key={ id }>
+      {console.log(sellerOrder[0])}
+      {sellerOrder.length === 0 && <p>Não há pedidos</p>}
+
+      {sellerOrder.map(
+        ({
+          id,
+          status,
+          saleDate,
+          totalPrice,
+          deliveryAddress,
+          deliveryNumber,
+        }) => (
+          <div key={ id }>
+            <Link to={ `/seller/orders/${id}` }>
               <div data-testid={ `seller_orders__element-order-id-${id}` }>
                 Pedido
                 {id}
@@ -53,12 +63,12 @@ export default function SellerOrderCards() {
               </div>
 
               <div data-testid={ `seller_orders__element-card-address-${id}` }>
-                {deliveryAddress}
+                {`${deliveryAddress}, ${deliveryNumber}`}
               </div>
-            </div>
-          ),
-        )}
-      </Link>
+            </Link>
+          </div>
+        ),
+      )}
     </>
   );
 }
