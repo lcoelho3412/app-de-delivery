@@ -1,3 +1,4 @@
+import moment from 'moment/moment';
 import { useState, useContext, useEffect, useCallback } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import GlobalContext from '../../contexts/GlobalContext';
@@ -53,7 +54,7 @@ export default function SellerOrderCards() {
               </div>
 
               <div data-testid={ `seller_orders__element-order-date-${id}` }>
-                {saleDate}
+                {moment(saleDate).format('DD/MM/YYYY')}
               </div>
 
               <div data-testid={ `seller_orders__element-card-price-${id}` }>
