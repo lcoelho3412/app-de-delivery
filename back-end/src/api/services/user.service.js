@@ -17,7 +17,7 @@ const signIn = async (body) => {
   if (hashedPassword !== user.password) {
     throw httpException(400, 'Wrong email or password.');
   }
- 
+
   const token = createToken(user);
 
   return token;
