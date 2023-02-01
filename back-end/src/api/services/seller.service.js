@@ -1,5 +1,5 @@
-const { User, Sale } = require('../../database/models');
-// const httpException = require('../utils/http.exception');
+const { User, Sale, Product } = require('../../database/models');
+const httpException = require('../utils/http.exception');
 
 const getOrdersBySeller = async (email) => {
   const seller = await User.findOne({
@@ -17,37 +17,31 @@ const getOrdersBySeller = async (email) => {
     },
   });
 
+  // descomentar caso queira trazer o erro direto no front
+  
   // if (sales.length === 0) {
   //   throw httpException(404, 'Não há pedidos');
   // }
 
   return sales;
 };
-const ordersBySellerById = async (email, id) => {
-  const seller = await User.findOne({
-    where: {
-      email,
-      role: 'seller',
-    },
+
+const ordersBySaleId = async (saleId) => {
+  const sale = await Sale.findByPk(saleId, {
+    include: [
+      { model: User, as: 'seller', attributes: ['name'] },
+      { model: Product, as: 'product', attributes: ['id', 'name', 'price'] },
+    ],
   });
 
-  const sellerId = Number(seller.dataValues.id);
+  if (!sale) {
+    throw httpException(404, 'Não há pedidos');
+  }
 
-  const sales = await Sale.findAll({
-    where: {
-      id,
-      sellerId,
-    },
-  });
-
-  // if (sales.length === 0) {
-  //   throw httpException(404, 'Não há pedidos');
-  // }
-
-  return sales;
+  return sale;
 };
 
 module.exports = {
   getOrdersBySeller,
-  ordersBySellerById,
+  ordersBySaleId,
 };
