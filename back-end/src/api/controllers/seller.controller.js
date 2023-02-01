@@ -30,7 +30,7 @@ const updateStatus = async (req, res) => {
   const { status } = req.body;
   const updatedOrder = await service.seller.updateStatus(id, status);
   return res.status(204).json(updatedOrder);
-}
+};
 
 module.exports = {
   getOrdersBySeller,
