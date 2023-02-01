@@ -13,6 +13,20 @@ const getOrdersBySeller = async (req, res) => {
   return res.status(200).json(ordersBySeller);
 };
 
+const ordersBySellerById = async (req, res) => {
+  const { authorization } = req.headers;
+  const id = Number(req.params.id);
+
+  const {
+    data: { email },
+  } = decode(authorization);
+
+  const ordersById = await service.seller.ordersBySellerById(email, id);
+
+  return res.status(200).json(ordersById);
+};
+
 module.exports = {
   getOrdersBySeller,
+  ordersBySellerById,
 };
