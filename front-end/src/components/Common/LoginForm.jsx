@@ -59,7 +59,10 @@ export default function LoginForm() {
     validation();
   }, [user, validation]);
 
+  const localUser = JSON.parse(localStorage.getItem('user'));
+
   if (history.location.pathname === '/') history.push('/login');
+  if (localUser) history.push('/customer/products');
 
   return (
     <div className="login-form">

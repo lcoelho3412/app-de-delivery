@@ -4,32 +4,35 @@ import GlobalContext from '../../../contexts/GlobalContext';
 
 export default function OrderCards() {
   const { order } = useContext(GlobalContext);
+  console.log('file: OrderCards.jsx:7 ~ OrderCards ~ order', order);
 
   return (
-    <Link to="/customer/orders/:id">
-      {order.map(({ number, status, date, total }, index) => (
+    <>
+      {order.map(({ id, saleDate, status, totalPrice }, index) => (
         <div key={ index }>
-          <div data-testid={ `customer_orders__element-order-id-${index}` }>
-            Pedido
-            {' '}
-            {number}
-          </div>
+          <Link to={ `/customer/orders/${id}` }>
+            <div data-testid={ `customer_orders__element-order-id-${id}` }>
+              Pedido
+              {' '}
+              {id}
+            </div>
 
-          <div data-testid={ `customer_orders__delivery-status-${index}` }>
-            {status}
-          </div>
+            <div data-testid={ `customer_orders__delivery-status-${id}` }>
+              {status}
+            </div>
 
-          <div data-testid={ `customer_orders__element-order-date-${index}` }>
-            {date}
-          </div>
+            <div data-testid={ `customer_orders__element-order-date-${id}` }>
+              {saleDate}
+            </div>
 
-          <div data-testid={ `customer_orders__element-card-price-${index}` }>
-            R$
-            {' '}
-            {total}
-          </div>
+            <div data-testid={ `customer_orders__element-card-price-${id}` }>
+              R$
+              {' '}
+              {totalPrice}
+            </div>
+          </Link>
         </div>
       ))}
-    </Link>
+    </>
   );
 }

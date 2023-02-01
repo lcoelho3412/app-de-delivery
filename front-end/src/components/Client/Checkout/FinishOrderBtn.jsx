@@ -17,33 +17,8 @@ export default function FinishOrderBtn({ address, addressNumber }) {
 
   const { token } = JSON.parse(localStorage.getItem('user'));
 
-  const generateOrderNumber = () => {
-    let counter = 1;
-    const fourDigit = 4;
-
-    const orderNumber = counter.toString().padStart(fourDigit, '0');
-    counter += 1;
-    return orderNumber;
-  };
-
-  const dateDisplay = () => {
-    const date = new Date();
-    const formattedDate = date.toLocaleDateString('pt-BR', {
-      day: '2-digit',
-      month: '2-digit',
-      year: 'numeric',
-    });
-    return formattedDate;
-  };
-
   const finishOrder = async (event) => {
     event.preventDefault();
-    const newOrder = {
-      number: generateOrderNumber(),
-      status: 'Pendente',
-      date: dateDisplay(),
-      total: total.toFixed(2).replace('.', ','),
-    };
 
     const formatedCart = cart.reduce((acc, curr) => {
       const { unitPrice, subTotal, name, ...cartObj } = curr;
@@ -61,9 +36,11 @@ export default function FinishOrderBtn({ address, addressNumber }) {
 
     const data = await requestPost('/sales', newSale, token);
 
-    setOrder([...order, newOrder]);
+    const { userId, deliveryAddress, deliveryNumber, sellerId, ...orderInfo } = data;
 
-    history.push(`/customer/orders/${data.id}`);
+    setOrder([...order, orderInfo]);
+
+    history.push('/customer/orders/');
   };
 
   return (
