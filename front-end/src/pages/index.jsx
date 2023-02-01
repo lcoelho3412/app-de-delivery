@@ -7,6 +7,17 @@ import OrderDetails from './Client/OrderDetails';
 import Checkout from './Client/Checkout';
 import Admin from './Admin/Admin';
 import SellerOrders from './Seller/SellerOrders';
+import SellerOrdersDetails from './Seller/SellerOrdersDetails';
 
-export { NotFound, Login, Register, Products,
-  Checkout, Admin, CustomerOrders, OrderDetails, SellerOrders };
+export {
+  NotFound,
+  Login,
+  Register,
+  Products,
+  Checkout,
+  Admin,
+  CustomerOrders,
+  OrderDetails,
+  SellerOrders,
+  SellerOrdersDetails,
+};
