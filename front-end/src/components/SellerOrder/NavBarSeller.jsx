@@ -25,14 +25,14 @@ export default function NavBarSeller() {
       <section className="nav-bar-user-stuff">
         <div
           className="nav-bar-name"
-          data-testid="seller_products__element-navbar-user-full-name"
+          data-testid="costumer_products__element-navbar-user-full-name"
         >
           {user.name}
         </div>
         <button
           type="button"
           className="logout-btn"
-          data-testid="seller_products__element-navbar-link-logout"
+          data-testid="customer_products__element-navbar-link-logout"
           onClick={ () => {
             localStorage.clear();
             history.push('/');
