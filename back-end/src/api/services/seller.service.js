@@ -2,7 +2,6 @@ const { User, Sale } = require('../../database/models');
 // const httpException = require('../utils/http.exception');
 
 const getOrdersBySeller = async (email) => {
-
   const seller = await User.findOne({
     where: {
       email,
@@ -46,7 +45,6 @@ const ordersBySellerById = async (email, id) => {
   // }
 
   return sales;
-
 };
 
 module.exports = {
