@@ -30,17 +30,17 @@ export default function LoginForm() {
       setUser(data);
 
       if (data.role === 'administrator') {
-        history.push('/admin/manage');
-
         localStorage.setItem('user', JSON.stringify(userData));
+
+        history.push('/admin/manage');
       } else if (data.role === 'seller') {
         localStorage.setItem('user', JSON.stringify(userData));
 
         history.push('/seller/orders');
       } else {
-        history.push('/customer/products');
-
         localStorage.setItem('user', JSON.stringify(userData));
+
+        history.push('/customer/products');
       }
     } catch (e) {
       setError(e.response.data.message);

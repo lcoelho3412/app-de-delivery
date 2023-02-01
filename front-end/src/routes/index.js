@@ -1,6 +1,16 @@
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { Login, NotFound, Register, Products, Checkout,
-  Admin, CustomerOrders, OrderDetails, SellerOrders } from '../pages';
+import {
+  Login,
+  NotFound,
+  Register,
+  Products,
+  Checkout,
+  Admin,
+  CustomerOrders,
+  OrderDetails,
+  SellerOrders,
+  SellerOrdersDetails,
+} from '../pages';
 
 export default function Routes() {
   return (
@@ -15,6 +25,11 @@ export default function Routes() {
         <Route exact path="/customer/orders/:id" component={ OrderDetails } />
         <Route exact path="/admin/manage" component={ Admin } />
         <Route exact path="/seller/orders" component={ SellerOrders } />
+        <Route
+          exact
+          path="/seller/orders/:id"
+          component={ SellerOrdersDetails }
+        />
         <Route path="*" component={ NotFound } />
       </Switch>
     </BrowserRouter>
