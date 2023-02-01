@@ -26,17 +26,17 @@ export default function LoginForm() {
       const data = await requestPost('/login', { email, password });
 
       if (data.role === 'administrator') {
-        history.push('/admin/manage');
-
         localStorage.setItem('user', JSON.stringify(data));
+
+        history.push('/admin/manage');
       } else if (data.role === 'seller') {
         localStorage.setItem('user', JSON.stringify(data));
 
         history.push('/seller/orders');
       } else {
-        history.push('/customer/products');
-
         localStorage.setItem('user', JSON.stringify(data));
+
+        history.push('/customer/products');
       }
     } catch (e) {
       setError(e.response.data.message);
