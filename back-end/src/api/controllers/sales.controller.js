@@ -28,4 +28,15 @@ const salesByUser = async (req, res) => {
   return res.status(200).json(sales);
 };
 
-module.exports = { create, salesByUser };
+const saleById = async (req, res) => {
+  const { authorization } = req.headers;
+  const saleId = Number(req.params.id);
+
+  await validateToken(authorization);
+
+  const sale = await service.sales.saleById(saleId);
+
+  return res.status(200).json(sale);
+};
+
+module.exports = { create, salesByUser, saleById };
