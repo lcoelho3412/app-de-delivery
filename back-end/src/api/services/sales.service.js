@@ -1,4 +1,5 @@
-const { Sale, SalesProducts, User } = require('../../database/models');
+const { Sale, SalesProducts, User, Product } = require('../../database/models');
+const httpException = require('../utils/http.exception');
 
 const create = async (body) => {
   const { soldProducts } = body;
@@ -33,4 +34,19 @@ const salesByUser = async (email) => {
   return sale;
 };
 
-module.exports = { create, salesByUser };
+const saleById = async (saleId) => {
+  const sale = await Sale.findByPk(saleId, {
+    include: [
+      { model: User, as: 'seller', attributes: ['name'] },
+      { model: Product, as: 'product', attributes: ['id', 'name', 'price'] },
+    ],
+  });
+
+  if (!sale) {
+    throw httpException(404, 'Venda não encontrada');
+  }
+
+  return sale;
+};
+
+module.exports = { create, salesByUser, saleById };
