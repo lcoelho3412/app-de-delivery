@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 export default function NavBar() {
   const [user, setUser] = useState('');
@@ -14,20 +14,20 @@ export default function NavBar() {
   return (
     <nav className="nav-bar">
       <section className="nav-bar-pages">
-        <a
-          href="/customer/products"
+        <Link
+          to="/customer/products"
           className="nav-bar-products"
           data-testid="customer_products__element-navbar-link-products"
         >
           Produtos
-        </a>
-        <a
-          href="/customer/orders"
+        </Link>
+        <Link
+          to="/customer/orders"
           className="nav-bar-orders"
           data-testid="customer_products__element-navbar-link-orders"
         >
           Meus Pedidos
-        </a>
+        </Link>
       </section>
       <section className="nav-bar-user-stuff">
         <div

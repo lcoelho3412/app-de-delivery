@@ -45,11 +45,10 @@ export default function SellerOrderCards() {
           <div key={ id }>
             <Link to={ `/seller/orders/${id}` }>
               <div data-testid={ `seller_orders__element-order-id-${id}` }>
-                Pedido
-                {id}
+                {`Pedido ${id}`}
               </div>
 
-              <div data-testid={ `seller_orders__delivery-status-${id}` }>
+              <div data-testid={ `seller_orders__element-delivery-status-${id}` }>
                 {status}
               </div>
 

@@ -14,7 +14,9 @@ const JWT_SECRET = fs.readFileSync('jwt.evaluation.key', { encoding: 'utf-8' });
 
 const createUser = async (req, res) => {
   const token = req.headers.authorization;
+
   const payload = jwt.verify(token, JWT_SECRET);
+
   req.user = payload;
 
   const { body } = req;
@@ -28,22 +30,31 @@ const createUser = async (req, res) => {
 
 const findAll = async (req, res) => {
   const { authorization } = req.headers;
+
   await validateToken(authorization);
+
   const users = await service.admin.findAll();
+
   return res.status(200).json(users);
 };
 
 const remove = async (req, res) => {
   const id = Number(req.params.id);
+
   const { authorization } = req.headers;
+
   await validateToken(authorization);
+
   const {
     data: { role },
   } = decode(authorization);
+
   if (role !== 'administrator') {
     throw httpException(401, 'Unauthorized user');
   }
+
   await service.admin.remove(id);
+
   return res.sendStatus(204);
 };
 
