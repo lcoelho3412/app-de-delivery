@@ -26,7 +26,7 @@ export default function OrderCards() {
               {id}
             </div>
 
-            <div data-testid={ `customer_orders__delivery-status-${id}` }>
+            <div data-testid={ `customer_orders__element-delivery-status-${id}` }>
               {status}
             </div>
 
