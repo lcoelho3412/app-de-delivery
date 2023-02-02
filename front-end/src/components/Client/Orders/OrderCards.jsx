@@ -1,16 +1,18 @@
-import { useContext, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import GlobalContext from '../../../contexts/GlobalContext';
 import { requestGet } from '../../../services/requests';
 
 export default function OrderCards() {
-  /* const { order } = useContext(GlobalContext);
-  console.log('file: OrderCards.jsx:7 ~ OrderCards ~ order', order); */
   const [order, setOrder] = useState([]);
   const fetch = async () => {
     const { token } = JSON.parse(localStorage.getItem('user'));
-    const pedidos = await requestGet('');
+    const pedidos = await requestGet('/sales', token);
+    setOrder(pedidos);
   };
+
+  useEffect(() => {
+    fetch();
+  }, []);
 
   return (
     <>
