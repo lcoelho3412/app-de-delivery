@@ -1,4 +1,4 @@
-const { Sale, SalesProducts } = require('../../database/models');
+const { Sale, SalesProducts, User } = require('../../database/models');
 
 const create = async (body) => {
   const { soldProducts } = body;
@@ -13,7 +13,8 @@ const create = async (body) => {
     status: 'Pendente',
   });
 
-  const soldArray = soldProducts.map(async (product) => SalesProducts.create({
+  const soldArray = soldProducts.map(async (product) =>
+    SalesProducts.create({
       saleId: sale.id,
       productId: product.productId,
       quantity: product.quantity,
@@ -24,4 +25,12 @@ const create = async (body) => {
   return sale;
 };
 
-module.exports = { create };
+const salesByUser = async (email) => {
+  const user = await User.findOne({ where: { email } });
+
+  const sale = await Sale.findAll({ where: { userId: user.id } });
+
+  return sale;
+};
+
+module.exports = { create, salesByUser };
