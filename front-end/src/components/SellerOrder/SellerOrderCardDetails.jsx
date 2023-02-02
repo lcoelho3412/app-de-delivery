@@ -32,25 +32,25 @@ export default function SellerOrderCardDetails() {
   return (
     <>
       <h3>Detalhe do Pedido</h3>
-
+      {console.log(nome)}
       <table>
         <thead>
           <tr>
-            <th
+            {/* <th
               data-testid={
                 'seller_order_details__'
                 + `element-order-details-label-order-${seller.id}`
               }
             >
               PEDIDO
-            </th>
+            </th> */}
             <th
               data-testid={
                 'seller_order_details__'
-                + 'element-order-details-label-seller-name'
+                + 'element-order-details-label-order-id'
               }
             >
-              {`P. Vend: ${nome}`}
+              {`PEDIDO ${seller.id}`}
             </th>
             <th
               data-testid={
@@ -94,12 +94,12 @@ export default function SellerOrderCardDetails() {
             <th>Sub-total</th>
           </tr>
 
-          {seller.product.map((item, index = 1) => (
+          {seller.product.map((item, index) => (
             <tr key={ index }>
               <td
                 data-testid={
                   'seller_order_details__element-order'
-                  + `-table-item-number-${index}`
+                  + `-table-item-number-${index + 1}`
                 }
               >
                 {index + 1}
@@ -112,7 +112,7 @@ export default function SellerOrderCardDetails() {
               <td
                 data-testid={
                   'seller_order_details__element-order'
-                  + `-table-quantity-${index}`
+                  + `-table-quantity-${index + 1}`
                 }
               >
                 {item.SalesProducts.quantity}
@@ -120,7 +120,7 @@ export default function SellerOrderCardDetails() {
               <td
                 data-testid={
                   'seller_order_details__element-order-'
-                  + `table-unit-price-${index}`
+                  + `table-unit-price-${index + 1}`
                 }
               >
                 {item.price}
@@ -128,7 +128,7 @@ export default function SellerOrderCardDetails() {
               <td
                 data-testid={
                   'seller_order_details__element-order-'
-                  + `table-sub-total-${index}`
+                  + `table-sub-total-${index + 1}`
                 }
               >
                 {(parseFloat(item.price) * item.SalesProducts.quantity).toFixed(
