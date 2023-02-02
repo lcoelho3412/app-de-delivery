@@ -1,3 +1,4 @@
+import moment from 'moment';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { requestGet } from '../../../services/requests';
@@ -30,7 +31,7 @@ export default function OrderCards() {
             </div>
 
             <div data-testid={ `customer_orders__element-order-date-${id}` }>
-              {saleDate}
+              {moment(saleDate).format('DD/MM/YYYY')}
             </div>
 
             <div data-testid={ `customer_orders__element-card-price-${id}` }>
