@@ -22,7 +22,6 @@ export default function OrderCards() {
           <Link to={ `/customer/orders/${id}` }>
             <div data-testid={ `customer_orders__element-order-id-${id}` }>
               Pedido
-              {' '}
               {id}
             </div>
 
@@ -36,7 +35,6 @@ export default function OrderCards() {
 
             <div data-testid={ `customer_orders__element-card-price-${id}` }>
               R$
-              {' '}
               {totalPrice}
             </div>
           </Link>
