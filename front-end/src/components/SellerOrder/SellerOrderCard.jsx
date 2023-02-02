@@ -48,7 +48,7 @@ export default function SellerOrderCards() {
                 {`Pedido ${id}`}
               </div>
 
-              <div data-testid={ `seller_orders__delivery-status-${id}` }>
+              <div data-testid={ `seller_orders__element-delivery-status-${id}` }>
                 {status}
               </div>
 

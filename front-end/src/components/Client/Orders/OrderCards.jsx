@@ -25,7 +25,7 @@ export default function OrderCards() {
               {id}
             </div>
 
-            <div data-testid={ `customer_orders__delivery-status-${id}` }>
+            <div data-testid={ `customer_orders__element-delivery-status-${id}` }>
               {status}
             </div>
 
@@ -35,7 +35,7 @@ export default function OrderCards() {
 
             <div data-testid={ `customer_orders__element-card-price-${id}` }>
               R$
-              {totalPrice}
+              {totalPrice.toString().replace('.', ',')}
             </div>
           </Link>
         </div>
