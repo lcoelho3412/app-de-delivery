@@ -16,6 +16,7 @@ const getOrdersBySeller = async (req, res) => {
 
 const ordersBySaleId = async (req, res) => {
   const { authorization } = req.headers;
+
   const saleId = Number(req.params.id);
 
   await validateToken(authorization);

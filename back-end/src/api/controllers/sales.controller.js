@@ -16,7 +16,7 @@ const create = async (req, res) => {
 
 const salesByUser = async (req, res) => {
   const { authorization } = req.headers;
-  
+
   await validateToken(authorization);
 
   const {
