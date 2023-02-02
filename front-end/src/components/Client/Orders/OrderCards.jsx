@@ -32,7 +32,6 @@ export default function OrderCards() {
             <div data-testid={ `customer_orders__element-order-date-${id}` }>
               {moment(saleDate).format('DD/MM/YYYY')}
             </div>
-
             <div data-testid={ `customer_orders__element-card-price-${id}` }>
               R$
               {totalPrice.toString().replace('.', ',')}
