@@ -40,7 +40,7 @@ export default function FinishOrderBtn({ address, addressNumber }) {
 
     setOrder([...order, orderInfo]);
 
-    history.push('/customer/orders/');
+    history.push(`/customer/orders/${data.id}`);
   };
 
   return (
