@@ -21,7 +21,6 @@ export default function DetailsComponent() {
       if (role !== 'customer') history.push('/');
 
       const sale = await requestGet(`/sales/${id}`, token);
-      console.log(sale);
 
       setNome(sale.seller.name);
       setStatus(sale.status);
