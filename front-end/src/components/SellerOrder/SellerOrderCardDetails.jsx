@@ -1,13 +1,15 @@
 import moment from 'moment/moment';
 import { useState, useEffect, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
-import { requestGet } from '../../services/requests';
+import { requestGet, requestUpdateStatus } from '../../services/requests';
 
 export default function SellerOrderCardDetails() {
   const history = useHistory();
   const [seller, setSeller] = useState({ product: [] });
   const [status, setStatus] = useState('');
   const [nome, setNome] = useState('');
+  const [disable, setDisable] = useState(true);
+  const [disable1, setDisable1] = useState(true);
 
   const fetch = useCallback(async () => {
     try {
@@ -16,7 +18,8 @@ export default function SellerOrderCardDetails() {
       if (role !== 'seller') history.push('/');
 
       const sale = await requestGet(history.location.pathname, token);
-
+      if (sale.status === 'Pendente') { setDisable(false); }
+      if (sale.status === 'Preparando') { setDisable1(false); }
       setNome(sale.seller.name);
       setStatus(sale.status);
       setSeller(sale);
@@ -24,6 +27,32 @@ export default function SellerOrderCardDetails() {
       setError(e.response.data.message);
     }
   }, [history, setSeller]);
+
+  const changeStatus = async (event) => {
+    event.preventDefault();
+    console.log(history.location.pathname);
+
+    await requestUpdateStatus(
+      history.location.pathname,
+      { status: 'Preparando' },
+    );
+    setDisable(true);
+    setDisable1(false);
+  };
+
+  const changeStatusTransit = async (event) => {
+    event.preventDefault();
+
+    try {
+      await requestUpdateStatus(
+        history.location.pathname,
+        { status: 'Em trânsito' },
+      );
+      setDisable1(true);
+    } catch (e) {
+      setError(e.response.data.message);
+    }
+  };
 
   useEffect(() => {
     fetch();
@@ -72,6 +101,8 @@ export default function SellerOrderCardDetails() {
             <button
               type="submit"
               data-testid="seller_order_details__button-preparing-check"
+              disabled={ disable }
+              onClick={ changeStatus }
             >
               PREPARAR PEDIDO
             </button>
@@ -79,6 +110,8 @@ export default function SellerOrderCardDetails() {
             <button
               type="submit"
               data-testid="seller_order_details__button-dispatch-check"
+              disabled={ disable1 }
+              onClick={ changeStatusTransit }
             >
               SAIU PARA ENTREGA
             </button>

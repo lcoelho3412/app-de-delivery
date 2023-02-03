@@ -67,4 +67,10 @@ export const requestGetSellerOrders = async (endpoint, body) => {
   return data;
 };
 
+export const requestUpdateStatus = async (endpoint, body) => {
+  const { data } = await api.patch(endpoint, body);
+
+  return data;
+};
+
 export default api;
