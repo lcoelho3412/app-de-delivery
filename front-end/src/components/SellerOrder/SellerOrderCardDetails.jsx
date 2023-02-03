@@ -36,12 +36,13 @@ export default function SellerOrderCardDetails() {
     event.preventDefault();
     console.log(history.location.pathname);
 
-    await requestUpdateStatus(
+    const sale = await requestUpdateStatus(
       history.location.pathname,
       { status: 'Preparando' },
     );
     setDisable(true);
     setDisable1(false);
+    setStatus(sale.status);
   };
 
   const changeStatusTransit = async (event) => {
@@ -50,7 +51,7 @@ export default function SellerOrderCardDetails() {
     try {
       await requestUpdateStatus(
         history.location.pathname,
-        { status: 'Em trânsito' },
+        { status: 'Em Trânsito' },
       );
       setDisable1(true);
     } catch (e) {
@@ -177,7 +178,7 @@ export default function SellerOrderCardDetails() {
 
           <tr>
             <td data-testid="seller_order_details__element-order-total-price">
-              {`Total: ${seller.totalPrice}`}
+              {`${(seller.totalPrice.toString()).replace('.', ',')}`}
             </td>
           </tr>
         </tbody>

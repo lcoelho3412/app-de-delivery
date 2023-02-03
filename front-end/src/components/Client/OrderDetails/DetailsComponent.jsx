@@ -1,7 +1,7 @@
 import moment from 'moment/moment';
 import { useState, useEffect, useCallback } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
-import { requestGet } from '../../../services/requests';
+import { requestGet, requestUpdateStatus } from '../../../services/requests';
 import NavBar from '../../Common/NavBar';
 
 export default function DetailsComponent() {
@@ -22,7 +22,7 @@ export default function DetailsComponent() {
       if (role !== 'customer') history.push('/');
 
       const sale = await requestGet(`/sales/${id}`, token);
-      if (sale.status === 'Em trânsito') { setDisable(false); }
+      if (sale.status === 'Em Trânsito') { setDisable(false); }
 
       setNome(sale.seller.name);
       setStatus(sale.status);
@@ -36,11 +36,13 @@ export default function DetailsComponent() {
     event.preventDefault();
     console.log(history.location.pathname);
 
-    await requestUpdateStatus(
+    const sale = await requestUpdateStatus(
       history.location.pathname,
       { status: 'Entregue' },
     );
+    console.log(sale);
     setDisable(true);
+    setStatus(sale.status);
   };
 
   useEffect(() => {
