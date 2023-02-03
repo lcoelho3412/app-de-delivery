@@ -10,6 +10,7 @@ export default function SellerOrderCardDetails() {
   const [nome, setNome] = useState('');
   const [disable, setDisable] = useState(true);
   const [disable1, setDisable1] = useState(true);
+  const [totalPrice, setTotalPrice] = useState('');
 
   const fetch = useCallback(async () => {
     try {
@@ -27,6 +28,8 @@ export default function SellerOrderCardDetails() {
       setNome(sale.seller.name);
       setStatus(sale.status);
       setSeller(sale);
+      setTotalPrice((sale.totalPrice).replace('.', ','));
+      console.log((sale.totalPrice).replace('.', ','));
     } catch (e) {
       setError(e.response.data.message);
     }
@@ -178,7 +181,10 @@ export default function SellerOrderCardDetails() {
 
           <tr>
             <td data-testid="seller_order_details__element-order-total-price">
-              {`${(seller.totalPrice.toString()).replace('.', ',')}`}
+              {/* {`${(seller.totalPrice.toString()).replace('.', ',')}`} */}
+              {/* {(seller.totalPrice)} */}
+              {totalPrice}
+              ;
             </td>
           </tr>
         </tbody>
