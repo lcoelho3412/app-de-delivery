@@ -29,7 +29,6 @@ export default function SellerOrderCardDetails() {
       setStatus(sale.status);
       setSeller(sale);
       setTotalPrice((sale.totalPrice).replace('.', ','));
-      console.log((sale.totalPrice).replace('.', ','));
     } catch (e) {
       setError(e.response.data.message);
     }

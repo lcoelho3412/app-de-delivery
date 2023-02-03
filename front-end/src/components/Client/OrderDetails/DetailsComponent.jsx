@@ -12,6 +12,7 @@ export default function DetailsComponent() {
   const [nome, setNome] = useState('');
   const [status, setStatus] = useState('');
   const [disable, setDisable] = useState(true);
+  const [totalPrice, setTotalPrice] = useState('');
   // setNome(sale.seller.name);
   // setStatus(sale.status);
 
@@ -27,6 +28,7 @@ export default function DetailsComponent() {
       setNome(sale.seller.name);
       setStatus(sale.status);
       setOrder(sale);
+      setTotalPrice((sale.totalPrice).replace('.', ','));
     } catch (e) {
       setError(e.response.data.message);
     }
@@ -146,7 +148,7 @@ export default function DetailsComponent() {
 
           <tr>
             <td data-testid={ `${dataTest}-total-price` }>
-              {`Total: ${order.totalPrice}`}
+              {totalPrice}
             </td>
           </tr>
         </tbody>
