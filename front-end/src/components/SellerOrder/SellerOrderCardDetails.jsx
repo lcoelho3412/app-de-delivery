@@ -20,6 +20,10 @@ export default function SellerOrderCardDetails() {
       const sale = await requestGet(history.location.pathname, token);
       if (sale.status === 'Pendente') { setDisable(false); }
       if (sale.status === 'Preparando') { setDisable1(false); }
+      if (sale.status === 'Entregue') {
+        setDisable(true);
+        setDisable2(true);
+      }
       setNome(sale.seller.name);
       setStatus(sale.status);
       setSeller(sale);

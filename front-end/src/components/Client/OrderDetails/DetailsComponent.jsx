@@ -11,6 +11,7 @@ export default function DetailsComponent() {
   const [error, setError] = useState('');
   const [nome, setNome] = useState('');
   const [status, setStatus] = useState('');
+  const [disable, setDisable] = useState(true);
   // setNome(sale.seller.name);
   // setStatus(sale.status);
 
@@ -21,6 +22,7 @@ export default function DetailsComponent() {
       if (role !== 'customer') history.push('/');
 
       const sale = await requestGet(`/sales/${id}`, token);
+      if (sale.status === 'Em trânsito') { setDisable(false); }
 
       setNome(sale.seller.name);
       setStatus(sale.status);
@@ -29,6 +31,17 @@ export default function DetailsComponent() {
       setError(e.response.data.message);
     }
   }, [history, setOrder, id]);
+
+  const changeStatus = async (event) => {
+    event.preventDefault();
+    console.log(history.location.pathname);
+
+    await requestUpdateStatus(
+      history.location.pathname,
+      { status: 'Entregue' },
+    );
+    setDisable(true);
+  };
 
   useEffect(() => {
     fetch();
@@ -81,6 +94,8 @@ export default function DetailsComponent() {
             <button
               type="submit"
               data-testid="customer_order_details__button-delivery-check"
+              disabled={ disable }
+              onClick={ changeStatus }
             >
               MARCADO COMO ENTEREGUE
             </button>
