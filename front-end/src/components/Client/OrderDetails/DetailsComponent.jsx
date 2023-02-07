@@ -1,7 +1,7 @@
 import moment from 'moment/moment';
 import { useState, useEffect, useCallback } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
-import { requestGet } from '../../../services/requests';
+import { requestGet, requestUpdateStatus } from '../../../services/requests';
 import NavBar from '../../Common/NavBar';
 
 export default function DetailsComponent() {
@@ -11,6 +11,8 @@ export default function DetailsComponent() {
   const [error, setError] = useState('');
   const [nome, setNome] = useState('');
   const [status, setStatus] = useState('');
+  const [disable, setDisable] = useState(true);
+  const [totalPrice, setTotalPrice] = useState('');
   // setNome(sale.seller.name);
   // setStatus(sale.status);
 
@@ -21,14 +23,29 @@ export default function DetailsComponent() {
       if (role !== 'customer') history.push('/');
 
       const sale = await requestGet(`/sales/${id}`, token);
+      if (sale.status === 'Em Trânsito') { setDisable(false); }
 
       setNome(sale.seller.name);
       setStatus(sale.status);
       setOrder(sale);
+      setTotalPrice((sale.totalPrice).replace('.', ','));
     } catch (e) {
       setError(e.response.data.message);
     }
   }, [history, setOrder, id]);
+
+  const changeStatus = async (event) => {
+    event.preventDefault();
+    console.log(history.location.pathname);
+
+    const sale = await requestUpdateStatus(
+      history.location.pathname,
+      { status: 'Entregue' },
+    );
+    console.log(sale);
+    setDisable(true);
+    setStatus(sale.status);
+  };
 
   useEffect(() => {
     fetch();
@@ -81,6 +98,8 @@ export default function DetailsComponent() {
             <button
               type="submit"
               data-testid="customer_order_details__button-delivery-check"
+              disabled={ disable }
+              onClick={ changeStatus }
             >
               MARCADO COMO ENTEREGUE
             </button>
@@ -129,7 +148,7 @@ export default function DetailsComponent() {
 
           <tr>
             <td data-testid={ `${dataTest}-total-price` }>
-              {`Total: ${order.totalPrice}`}
+              {totalPrice}
             </td>
           </tr>
         </tbody>

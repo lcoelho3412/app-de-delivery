@@ -15,7 +15,7 @@ export default function NavBarSeller() {
     <nav className="nav-bar">
       <section className="nav-bar-pages">
         <a
-          href="/customer/orders"
+          href="/seller/orders"
           className="nav-bar-orders"
           data-testid="customer_products__element-navbar-link-orders"
         >

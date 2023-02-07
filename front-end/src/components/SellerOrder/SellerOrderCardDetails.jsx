@@ -1,13 +1,16 @@
 import moment from 'moment/moment';
 import { useState, useEffect, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
-import { requestGet } from '../../services/requests';
+import { requestGet, requestUpdateStatus } from '../../services/requests';
 
 export default function SellerOrderCardDetails() {
   const history = useHistory();
   const [seller, setSeller] = useState({ product: [] });
   const [status, setStatus] = useState('');
   const [nome, setNome] = useState('');
+  const [disable, setDisable] = useState(true);
+  const [disable1, setDisable1] = useState(true);
+  const [totalPrice, setTotalPrice] = useState('');
 
   const fetch = useCallback(async () => {
     try {
@@ -16,14 +19,47 @@ export default function SellerOrderCardDetails() {
       if (role !== 'seller') history.push('/');
 
       const sale = await requestGet(history.location.pathname, token);
-
+      if (sale.status === 'Pendente') { setDisable(false); }
+      if (sale.status === 'Preparando') { setDisable1(false); }
+      if (sale.status === 'Entregue') {
+        setDisable(true);
+        setDisable2(true);
+      }
       setNome(sale.seller.name);
       setStatus(sale.status);
       setSeller(sale);
+      setTotalPrice((sale.totalPrice).replace('.', ','));
     } catch (e) {
       setError(e.response.data.message);
     }
   }, [history, setSeller]);
+
+  const changeStatus = async (event) => {
+    event.preventDefault();
+    console.log(history.location.pathname);
+
+    const sale = await requestUpdateStatus(
+      history.location.pathname,
+      { status: 'Preparando' },
+    );
+    setDisable(true);
+    setDisable1(false);
+    setStatus(sale.status);
+  };
+
+  const changeStatusTransit = async (event) => {
+    event.preventDefault();
+
+    try {
+      await requestUpdateStatus(
+        history.location.pathname,
+        { status: 'Em Trânsito' },
+      );
+      setDisable1(true);
+    } catch (e) {
+      setError(e.response.data.message);
+    }
+  };
 
   useEffect(() => {
     fetch();
@@ -72,6 +108,8 @@ export default function SellerOrderCardDetails() {
             <button
               type="submit"
               data-testid="seller_order_details__button-preparing-check"
+              disabled={ disable }
+              onClick={ changeStatus }
             >
               PREPARAR PEDIDO
             </button>
@@ -79,6 +117,8 @@ export default function SellerOrderCardDetails() {
             <button
               type="submit"
               data-testid="seller_order_details__button-dispatch-check"
+              disabled={ disable1 }
+              onClick={ changeStatusTransit }
             >
               SAIU PARA ENTREGA
             </button>
@@ -140,7 +180,10 @@ export default function SellerOrderCardDetails() {
 
           <tr>
             <td data-testid="seller_order_details__element-order-total-price">
-              {`Total: ${seller.totalPrice}`}
+              {/* {`${(seller.totalPrice.toString()).replace('.', ',')}`} */}
+              {/* {(seller.totalPrice)} */}
+              {totalPrice}
+              ;
             </td>
           </tr>
         </tbody>
